@@ -1,4 +1,5 @@
 import { ArrowDown } from "lucide-react"
+import { routes } from "@/data/site"
 
 const meta = [
   ["Location", "Remote — UK / EU / Global"],
@@ -33,13 +34,13 @@ export function Hero() {
             yurapion@gmail.com
           </a>
           <a
-            href="/newportfolio/cv/Yurii_Piontkovskyi_CV.pdf"
+            href={routes.cv}
             className="rounded-full border border-line px-6 py-3 font-mono text-sm text-fg transition-colors hover:border-accent hover:text-accent"
           >
             Download CV
           </a>
           <a
-            href="#work"
+            href={routes.work}
             className="group inline-flex items-center gap-2 px-2 py-3 font-mono text-sm text-muted transition-colors hover:text-fg"
           >
             Selected work

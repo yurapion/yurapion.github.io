@@ -1,6 +1,8 @@
 import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
+import { Nav } from "@/components/site/nav"
 import { getNote, notes } from "@/data/notes"
+import { routes, siteProfile } from "@/data/site"
 
 export function generateStaticParams() {
   return notes.map((n) => ({ slug: n.slug }))
@@ -33,9 +35,11 @@ export default async function NotePage({ params }: { params: Promise<{ slug: str
   }
 
   return (
-    <main className="mx-auto max-w-3xl px-5 py-20 sm:px-8 sm:py-28">
+    <>
+    <Nav />
+    <main className="mx-auto max-w-3xl px-5 py-28 sm:px-8 sm:py-36">
       <a
-        href="/newportfolio/#work"
+        href={routes.work}
         className="group inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.18em] text-muted transition-colors hover:text-accent"
       >
         <ArrowLeft size={13} className="transition-transform group-hover:-translate-x-0.5" />
@@ -67,15 +71,16 @@ export default async function NotePage({ params }: { params: Promise<{ slug: str
 
       <footer className="mt-16 border-t border-line pt-8">
         <a
-          href="mailto:yurapion@gmail.com"
+          href={`mailto:${siteProfile.email}`}
           className="link-slide font-mono text-sm text-fg"
         >
-          yurapion@gmail.com
+          {siteProfile.email}
         </a>
-        <Link href="/" className="ml-6 font-mono text-sm text-muted transition-colors hover:text-accent">
-          ← Back home
+        <Link href="/work" className="ml-6 font-mono text-sm text-muted transition-colors hover:text-accent">
+          ← Back to work
         </Link>
       </footer>
     </main>
+    </>
   )
 }

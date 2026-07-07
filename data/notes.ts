@@ -24,7 +24,7 @@ export const notes: Note[] = [
     sections: [
       {
         paras: [
-          "AccentPOS runs 30+ venues on one Hasura and PostgreSQL backend. A single query that forgets its tenant filter shows one venue's orders on another venue's dashboard. In a system taking live payments, that's an incident.",
+          "AccentPOS runs many venues on one Hasura and PostgreSQL backend, with the current CV recording 30+ live venues. A single query that forgets its tenant filter shows one venue's orders on another venue's dashboard. In a system taking live payments, that's an incident.",
           "So the question that shaped the design was narrow: where does tenant isolation live?",
         ],
       },
@@ -67,21 +67,21 @@ export const notes: Note[] = [
   {
     slug: "a-translation-pipeline-that-cant-drop-a-job",
     title: "A translation pipeline that can't drop a job — or overwrite a clinician",
-    dek: "Sharding, dead-letter discipline, and one silent four-week outage on CardMedic's 55-language content pipeline.",
+    dek: "Sharding, dead-letter discipline, and one silent four-week outage on CardMedic's multilingual content pipeline.",
     project: "CardMedic",
     projectId: "cardmedic",
     readingTime: "5 min",
     sections: [
       {
         paras: [
-          "CardMedic keeps a clinical content library in sync across 55 languages. Two constraints shape everything else. A translation job can't silently vanish. And a machine translation can never overwrite wording a clinician has verified.",
+          "CardMedic keeps a clinical content library in sync across many languages; the local mobile source contains 49 locale files. Two constraints shape everything else. A translation job can't silently vanish. And a machine translation can never overwrite wording a clinician has verified.",
           "At more than 100,000 jobs a month, both have to hold without anyone watching the screen.",
         ],
       },
       {
         heading: "One queue is a bottleneck and a single point of failure",
         paras: [
-          "A single translation queue hot-spots. One busy language backs up behind another, and the whole thing starts throttling the vendor API. So the pipeline shards into 21 queues, one lane per language, each batching on its own.",
+          "A single translation queue hot-spots. One busy language backs up behind another, and the whole thing starts throttling the vendor API. So the pipeline uses language-specific lanes, each batching on its own.",
           "A surge in Arabic doesn't starve Polish. The lanes are independent, and that independence is the point.",
         ],
       },
@@ -110,7 +110,7 @@ export const notes: Note[] = [
       {
         heading: "What I'd revisit",
         paras: [
-          "Two things. The 21 shards are a fixed count in config; a dynamic count would scale throughput without a redeploy. And signature verification covers the Xero webhook today — every inbound callback deserves the same HMAC check.",
+          "Two things. Queue sharding belongs in runtime config; that would scale throughput without a redeploy. And signature verification covers the Xero webhook today — every inbound callback deserves the same HMAC check.",
         ],
       },
     ],

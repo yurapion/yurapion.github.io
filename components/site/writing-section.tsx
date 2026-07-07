@@ -1,5 +1,6 @@
 import { ArrowUpRight } from "lucide-react"
 import { notes } from "@/data/notes"
+import { routes } from "@/data/site"
 import { Reveal } from "./reveal"
 import { SectionHeading } from "./section-heading"
 
@@ -15,7 +16,7 @@ export function WritingSection() {
         {notes.map((note) => (
           <Reveal key={note.slug}>
             <a
-              href={`/newportfolio/notes/${note.slug}/`}
+              href={`${routes.home}notes/${note.slug}/`}
               className="group flex h-full flex-col rounded-lg border border-line bg-surface p-7 transition-colors hover:border-accent/50"
             >
               <div className="flex items-center justify-between font-mono text-xs uppercase tracking-[0.16em] text-muted">

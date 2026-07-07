@@ -1,0 +1,21 @@
+import type { Metadata } from "next"
+import { Nav } from "@/components/site/nav"
+import { CaseStudies } from "@/components/site/case-studies"
+import { Footer } from "@/components/site/footer"
+
+export const metadata: Metadata = {
+  title: "Selected Work - Yurii Piontkovskyi",
+  description: "Verified case studies from healthcare, clinical AI, hospitality SaaS, and consumer media platforms.",
+}
+
+export default function WorkPage() {
+  return (
+    <>
+      <Nav />
+      <main className="pt-10">
+        <CaseStudies />
+      </main>
+      <Footer />
+    </>
+  )
+}

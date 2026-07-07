@@ -13,7 +13,7 @@ export const skillGroups: SkillGroup[] = [
   {
     id: "frontend",
     label: "Frontend",
-    items: ["React 17–18", "Vite", "Redux Toolkit", "React Query", "Apollo Client", "MUI", "Flutter", "Riverpod"],
+    items: ["React 17–18", "Vite", "Redux Toolkit", "React Query", "Apollo Client", "MUI", "React Native", "Flutter", "Riverpod"],
   },
   {
     id: "backend",
@@ -34,7 +34,7 @@ export const skillGroups: SkillGroup[] = [
   {
     id: "data",
     label: "Data",
-    items: ["PostgreSQL", "DynamoDB", "Dgraph", "KeyDB/Redis", "Kafka", "EF Core", "Hasura"],
+    items: ["PostgreSQL", "DynamoDB", "Dgraph", "Redis-compatible stores", "Kafka", "EF Core", "Hasura"],
   },
   {
     id: "devops",

@@ -1,5 +1,5 @@
-// System-architecture data per case study. Layers flow top → bottom.
-// Every node label and number is drawn from the verified source repositories.
+// System-architecture data per case study. Layers flow top to bottom.
+// Source-counted numbers stay separate from CV-carried delivery metrics in copy.
 
 export interface ArchNode {
   label: string
@@ -38,22 +38,22 @@ export const architectures: ProjectArchitecture[] = [
     pattern: "Event-driven serverless · AWS",
     stats: [
       { value: "9", label: "microservices" },
-      { value: "244", label: "REST endpoints" },
-      { value: "21", label: "sharded SQS queues" },
-      { value: "55", label: "locales" },
+      { value: "~252", label: "HTTP events" },
+      { value: "96", label: "SQS resources" },
+      { value: "49", label: "locale files" },
     ],
     layers: [
       {
         tier: "Client",
         nodes: [
-          { label: "Flutter app", note: "55 locales · 3-layer RTL" },
+          { label: "React Native app", note: "49 locale files · i18n" },
           { label: "React admin platform" },
         ],
       },
       {
         tier: "API & edge",
         nodes: [
-          { label: "API Gateway", note: "244 REST endpoints" },
+          { label: "API Gateway", note: "~252 HTTP events in source" },
           { label: "Cognito", note: "auth" },
         ],
       },
@@ -66,8 +66,8 @@ export const architectures: ProjectArchitecture[] = [
       {
         tier: "Async pipeline",
         nodes: [
-          { label: "21 sharded TranslateQueues", note: "batched per language", accent: true },
-          { label: "Polly · BSL · Recording queues" },
+          { label: "Translation queues", note: "language lanes · batching", accent: true },
+          { label: "Polly · BSL · recording queues" },
           { label: "DLQ → CloudWatch → SNS → Slack" },
         ],
       },
@@ -78,7 +78,7 @@ export const architectures: ProjectArchitecture[] = [
       {
         tier: "Data",
         nodes: [
-          { label: "DynamoDB", note: "AES-256-GCM · 8-yr retention" },
+          { label: "DynamoDB", note: "encrypted clinical records" },
           { label: "S3" },
         ],
       },
@@ -86,7 +86,7 @@ export const architectures: ProjectArchitecture[] = [
     decisions: [
       {
         title: "Shard the translation queue by language",
-        body: "A single translate queue would have hot-spotted and throttled the vendor API at 100k+ jobs/month. 21 language shards each batch independently, so one busy language never starves the rest.",
+        body: "A single translate queue would hot-spot and throttle the vendor API. Language-specific lanes batch independently, so one busy language does not starve the rest.",
       },
       {
         title: "Feature-flag the vendor, don't fork the code",
@@ -99,15 +99,15 @@ export const architectures: ProjectArchitecture[] = [
     ],
     optimizedFor: ["Never overwrite verified clinical content", "Throughput without vendor throttling", "Swap vendors without a rewrite"],
     retro:
-      "Signature verification currently covers the Xero webhook; I'd extend HMAC checks to every inbound integration rather than lean on the network boundary for the rest — and make the 21 shards a dynamic count so throughput scales without a redeploy.",
+      "Signature verification covers the Xero webhook; I would extend HMAC checks to every inbound integration and make queue sharding config-driven so throughput can change without a redeploy.",
   },
   {
     id: "ai-sight",
     pattern: "Cross-cloud · Clean Architecture · .NET 10",
     stats: [
       { value: "108", label: "REST endpoints" },
-      { value: "~80", label: "domain types" },
-      { value: "68", label: "EF migrations" },
+      { value: "23", label: "controllers" },
+      { value: "67", label: "EF migrations" },
       { value: "2×", label: "concurrent AI models" },
     ],
     layers: [
@@ -126,7 +126,7 @@ export const architectures: ProjectArchitecture[] = [
       {
         tier: "Backend",
         nodes: [
-          { label: ".NET 10 Clean Architecture", note: "108 endpoints · 23 controllers · ~80 domain types", accent: true },
+          { label: ".NET 10 Clean Architecture", note: "108 HTTP attributes · 23 controllers", accent: true },
           { label: "LanguageExt", note: "Either / Option — 170 files" },
         ],
       },
@@ -137,7 +137,7 @@ export const architectures: ProjectArchitecture[] = [
       {
         tier: "Data",
         nodes: [
-          { label: "PostgreSQL / EF Core", note: "68 migrations" },
+          { label: "PostgreSQL / EF Core", note: "67 migration files" },
           { label: "Azure Blob" },
         ],
       },
@@ -174,16 +174,16 @@ export const architectures: ProjectArchitecture[] = [
     ],
     optimizedFor: ["Explicit failure over silent exceptions", "Auditability the regulator can check", "Real-time feedback to the clinician"],
     retro:
-      "The cross-cloud split earns best-of-both but adds a network hop and two IAM models to reason about; next time I'd invest earlier in unified secrets and observability spanning Azure and AWS, so the seam costs less to operate.",
+      "The cross-cloud split earns best-of-both but adds a network hop and two IAM models to reason about; next time I would invest earlier in unified secrets and observability spanning Azure and AWS, so the integration costs less to operate.",
   },
   {
     id: "accentpos",
     pattern: "Declarative GraphQL core · event-driven writes",
     stats: [
       { value: "326", label: "SQL migrations" },
-      { value: "40", label: "event triggers" },
-      { value: "19", label: "webhook modules" },
-      { value: "30+", label: "live venues" },
+      { value: "14", label: "triggered tables" },
+      { value: "62", label: "table metadata files" },
+      { value: "30+", label: "venues in CV" },
     ],
     layers: [
       {
@@ -199,11 +199,11 @@ export const architectures: ProjectArchitecture[] = [
       },
       {
         tier: "Event layer",
-        nodes: [{ label: "14 tables → 40 event triggers", accent: true }],
+        nodes: [{ label: "14 trigger-enabled tables", accent: true }],
       },
       {
         tier: "Business logic",
-        nodes: [{ label: "Fastify webhook service", note: "19 domain modules" }],
+        nodes: [{ label: "Fastify webhook service", note: "payments · delivery · finance · auth" }],
       },
       {
         tier: "Auth",
@@ -235,16 +235,16 @@ export const architectures: ProjectArchitecture[] = [
     ],
     optimizedFor: ["One schema as the contract", "Side effects isolated from data access", "Multi-tenant safety enforced by the DB"],
     retro:
-      "Per-venue theming is config-driven on the customer storefront but still hardcoded in the internal ops app — I'd bring both under one runtime-config path, and budget the Material-UI v4 → v5 migration before it becomes a wall.",
+      "Per-venue theming is config-driven on the customer storefront but still harder to reuse in the internal ops app. I would bring both under one runtime-config path and budget the Material-UI v4 to v5 migration before it becomes a wall.",
   },
   {
     id: "wunder",
     pattern: "Layered Go platform · GraphQL · GitOps",
     stats: [
       { value: "44", label: "Go services" },
-      { value: "710", label: "Go files" },
-      { value: "5", label: "GraphQL schemas" },
-      { value: "20", label: "brand configs" },
+      { value: "49", label: "Go cmd binaries" },
+      { value: "714", label: "Go files" },
+      { value: "6", label: "gqlgen configs" },
     ],
     layers: [
       {
@@ -257,11 +257,11 @@ export const architectures: ProjectArchitecture[] = [
       },
       {
         tier: "GraphQL",
-        nodes: [{ label: "5 gqlgen schemas", note: "Apollo + WebSocket" }],
+        nodes: [{ label: "6 gqlgen configs", note: "Apollo + WebSocket" }],
       },
       {
         tier: "Services",
-        nodes: [{ label: "44 Go services", note: "l1 edge · l2 domain · l3 decision", accent: true }],
+        nodes: [{ label: "49 Go cmd binaries", note: "l1 edge · l2 domain · l3 decision", accent: true }],
       },
       {
         tier: "Inference",
@@ -270,7 +270,7 @@ export const architectures: ProjectArchitecture[] = [
       {
         tier: "Data pipeline",
         nodes: [
-          { label: "KeyDB → Kafka → Dgraph", note: "Benthos jobs" },
+          { label: "Redis-compatible store → Kafka → Dgraph", note: "Benthos jobs" },
           { label: "PostgreSQL" },
         ],
       },
@@ -287,7 +287,7 @@ export const architectures: ProjectArchitecture[] = [
     decisions: [
       {
         title: "Tier the services, don't mesh them",
-        body: "44 services split into l1 edge / l2 domain / l3 decision layers. A request flows down through clear responsibility boundaries instead of a free-for-all where any service can call any other.",
+        body: "The platform uses l1 edge, l2 domain, and l3 decision layers. A request flows through responsibility boundaries instead of a free-for-all where any service can call any other.",
       },
       {
         title: "Compile the rules, don't interpret them",
@@ -298,9 +298,9 @@ export const architectures: ProjectArchitecture[] = [
         body: "Playtime pulls brand config at runtime, so 20 festival brands and 70 template types ship from a single codebase — not 20 forks drifting apart.",
       },
     ],
-    optimizedFor: ["Clear boundaries at 44 services", "Rules readable by humans, native at runtime", "One codebase across 20 brands"],
+    optimizedFor: ["Clear service boundaries", "Rules readable by humans, native at runtime", "One codebase across branded experiences"],
     retro:
-      "Brand setup is split between runtime config and release branches; I'd consolidate to a single config-driven path so onboarding a new brand never needs a branch — and add schema linting across the 5 GraphQL schemas as they diverge.",
+      "Brand setup mixes runtime config and release flow. I would consolidate it into a single config-driven path and add schema linting across the gqlgen configs as they diverge.",
   },
 ]
 

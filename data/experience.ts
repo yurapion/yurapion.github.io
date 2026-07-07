@@ -24,7 +24,7 @@ export const experience: Experience[] = [
       "Designed AccentPOS's Hasura + Fastify platform with PostgreSQL schema-as-code (326 migrations)",
       "Direct client communication on priorities, trade-offs, and delivery timelines; mentored juniors through code-level guidance and PR reviews",
     ],
-    stack: ["TypeScript", "Node.js", "C# / .NET", "React", "Flutter", "AWS", "Azure", "PostgreSQL", "Terraform"],
+    stack: ["TypeScript", "Node.js", "C# / .NET", "React", "React Native", "AWS", "Azure", "PostgreSQL", "Terraform"],
   },
   {
     id: "wunder",
@@ -37,10 +37,10 @@ export const experience: Experience[] = [
     highlights: [
       "Built React frontends on a shared Apollo GraphQL + WebSocket layer — Playtime (multi-brand festival SPA) and Target Group (Cytoscape/D3 graph visualisations)",
       "Delivered LiveMind realtime session mirroring: the B2B app embeds the consumer SPA via iframe and mirrors participant activity through shared GraphQL subscriptions",
-      "Contributed to a Go + gqlgen monorepo of 44 services with polyglot persistence (Dgraph, PostgreSQL, KeyDB, Kafka) and a rule-book-to-Go code generator for consumer profiling",
-      "Shipped via Drone → Kaniko → Kubernetes with Flux/ArgoCD GitOps, Helm, and Prometheus/Grafana/Loki observability",
+      "Contributed to a Go + gqlgen monorepo with 49 command binaries, Dgraph/PostgreSQL/Kafka references, and a rule-book-to-Go code generator for consumer profiling",
+      "Worked in a Drone → Kaniko → Kubernetes delivery flow with GitOps and Prometheus-style observability patterns",
     ],
-    stack: ["React", "TypeScript", "Go", "gqlgen", "GraphQL", "Kubernetes", "Kafka", "Dgraph", "ArgoCD"],
+    stack: ["React", "TypeScript", "Go", "gqlgen", "GraphQL", "Kubernetes", "Kafka", "Dgraph", "Apollo"],
   },
   {
     id: "freelance",

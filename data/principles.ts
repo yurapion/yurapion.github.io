@@ -16,12 +16,12 @@ export const principles: Principle[] = [
   {
     title: "Change behaviour with data, not forks",
     body: "The variation worth having lives in config and schema, not in branches that quietly drift apart. I author migrations as part of the feature, so the schema stays the current truth.",
-    evidence: "A 326-migration schema in AccentPOS, 68 in AI Sight · SSM-flagged vendor swap · 20 brands from one SPA",
+    evidence: "A 326-migration schema in AccentPOS, 67 EF migration files in AI Sight · SSM-flagged vendor swap · branded Playtime experiences from one SPA",
   },
   {
     title: "Right tool for each boundary",
-    body: "Boundaries are a design decision. Each service, cloud, and layer does the one thing it's best at, and I spend the time on the seams between them.",
-    evidence: "Azure identity + AWS SageMaker inference in AI Sight · l1/l2/l3 service tiers across 44 Go services in cosnova",
+    body: "Boundaries are a design decision. Each service, cloud, and layer does the one thing it's best at, and I spend the time on the integrations between them.",
+    evidence: "Azure identity + AWS SageMaker inference in AI Sight · l1/l2/l3 service tiers in cosnova",
   },
   {
     title: "Ship it observable and tested",

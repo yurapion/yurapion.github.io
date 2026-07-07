@@ -1,9 +1,10 @@
 import { ArrowUpRight } from "lucide-react"
+import { routes, siteProfile } from "@/data/site"
 
 const links = [
-  { href: "https://www.linkedin.com/in/yuryi-piontkovskyi-240a74131", label: "LinkedIn" },
-  { href: "https://github.com/yurapion", label: "GitHub" },
-  { href: "/newportfolio/cv/Yurii_Piontkovskyi_CV.pdf", label: "CV (PDF)" },
+  { href: siteProfile.linkedin, label: "LinkedIn" },
+  { href: siteProfile.github, label: "GitHub" },
+  { href: routes.cv, label: "CV (PDF)" },
 ]
 
 export function Footer() {
@@ -16,10 +17,10 @@ export function Footer() {
         Let&apos;s build something that holds up.
       </h2>
       <a
-        href="mailto:yurapion@gmail.com"
+        href={`mailto:${siteProfile.email}`}
         className="link-slide mt-8 inline-block font-mono text-lg text-fg sm:text-2xl"
       >
-        yurapion@gmail.com
+        {siteProfile.email}
       </a>
       <div className="mt-12 flex flex-wrap items-center gap-6 border-t border-line pt-8">
         {links.map((l) => (
@@ -35,11 +36,11 @@ export function Footer() {
           </a>
         ))}
         <p className="ml-auto font-mono text-xs text-muted">
-          Remote — open to UK / EU / Global · English · Ukrainian
+          {siteProfile.location} · English · Ukrainian
         </p>
       </div>
       <p className="mt-8 font-mono text-xs leading-relaxed text-muted">
-        Every metric on this page is traceable to source code or delivery records. Built with Next.js.
+        Metrics are either counted from local source or carried from the current CV/delivery record. Built with Next.js.
       </p>
     </footer>
   )

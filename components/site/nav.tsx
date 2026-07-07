@@ -1,19 +1,15 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { usePathname } from "next/navigation"
 import { Moon, Sun } from "lucide-react"
-
-const links = [
-  { href: "#work", label: "Work" },
-  { href: "#approach", label: "Approach" },
-  { href: "#ai", label: "AI" },
-  { href: "#writing", label: "Writing" },
-  { href: "#experience", label: "Experience" },
-  { href: "#contact", label: "Contact" },
-]
+import { basePath, navLinks, routes } from "@/data/site"
 
 export function Nav() {
   const [dark, setDark] = useState(true)
+  const pathname = usePathname()
+
+  const activePath = pathname?.startsWith(basePath) ? pathname.slice(basePath.length) || "/" : pathname || "/"
 
   useEffect(() => {
     setDark(document.documentElement.classList.contains("dark"))
@@ -33,15 +29,26 @@ export function Nav() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-line bg-bg/85 backdrop-blur-md">
       <nav className="mx-auto flex h-14 max-w-page items-center justify-between px-5 font-mono text-xs tracking-wide sm:px-8">
-        <a href="#top" className="font-medium text-fg">
+        <a href={routes.home} className="font-medium text-fg">
           Y·P
         </a>
         <div className="flex items-center gap-5 sm:gap-7">
-          {links.map((l) => (
-            <a key={l.href} href={l.href} className="link-slide hidden text-muted transition-colors hover:text-fg sm:inline">
-              {l.label}
-            </a>
-          ))}
+          {navLinks.map((l, index) => {
+            const hrefPath = l.href.replace(basePath, "").replace(/#.*$/, "") || "/"
+            const active = hrefPath !== "/" && activePath.startsWith(hrefPath)
+            return (
+              <a
+                key={l.href}
+                href={l.href}
+                aria-current={active ? "page" : undefined}
+                className={`link-slide transition-colors hover:text-fg ${
+                  index > 1 ? "hidden sm:inline" : "inline"
+                } ${active ? "text-accent" : "text-muted"}`}
+              >
+                {l.label}
+              </a>
+            )
+          })}
           <button
             onClick={toggle}
             aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}

@@ -2,6 +2,7 @@ import { ArrowUpRight } from "lucide-react"
 import { caseStudies } from "@/data/projects"
 import { getArchitecture } from "@/data/architecture"
 import { getNoteForProject } from "@/data/notes"
+import { routes } from "@/data/site"
 import { ArchitectureDiagram } from "./architecture-diagram"
 import { Reveal } from "./reveal"
 import { SectionHeading } from "./section-heading"
@@ -12,7 +13,7 @@ export function CaseStudies() {
       <SectionHeading
         index="01"
         title="Selected work"
-        lede="Four systems, four different problems. Each one leads with its real numbers and its architecture — every figure is counted from the source code or carried from delivery records, nothing estimated."
+        lede="Four systems, four different problems. Source-counted facts and CV-carried delivery metrics are kept explicit, so the work reads as evidence rather than a pitch deck."
       />
       <div className="space-y-24 sm:space-y-36">
         {caseStudies.map((cs, i) => {
@@ -49,10 +50,14 @@ export function CaseStudies() {
                   <h3 className="font-display text-3xl sm:text-4xl">{cs.name}</h3>
                   <p className="mt-2 font-display text-lg italic text-accent">{cs.tagline}</p>
                   <p className="mt-6 leading-relaxed text-muted">{cs.context}</p>
+                  <p className="mt-4 text-sm leading-relaxed text-muted">
+                    <span className="font-mono text-xs uppercase tracking-[0.16em] text-accent">My role</span>{" "}
+                    {cs.role}
+                  </p>
 
                   {note && (
                     <a
-                      href={`/newportfolio/notes/${note.slug}/`}
+                      href={`${routes.home}notes/${note.slug}/`}
                       className="group mt-4 inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.16em] text-accent"
                     >
                       Design note: {note.title}
@@ -112,6 +117,16 @@ export function CaseStudies() {
                         </li>
                       ))}
                     </ul>
+                  </div>
+
+                  <div className="mt-6 flex flex-wrap items-center gap-4">
+                    <a
+                      href={`${routes.work}${cs.id}/`}
+                      className="rounded-full border border-line px-5 py-2.5 font-mono text-xs uppercase tracking-[0.16em] text-fg transition-colors hover:border-accent hover:text-accent"
+                    >
+                      Full case study
+                    </a>
+                    <span className="max-w-xl text-xs leading-relaxed text-muted">{cs.evidenceNote}</span>
                   </div>
 
                   {/* What I optimized for */}

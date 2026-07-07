@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { Fraunces, IBM_Plex_Mono, Instrument_Sans } from "next/font/google"
+import { siteProfile } from "@/data/site"
 import "./globals.css"
 
 const display = Fraunces({
@@ -22,7 +23,7 @@ const sans = Instrument_Sans({
 export const metadata: Metadata = {
   title: "Yurii Piontkovskyi — Senior Full-Stack Engineer",
   description:
-    "Senior full-stack engineer building cloud-native, distributed systems for healthcare, medical imaging AI, and SaaS — and running AI agents in production.",
+    `${siteProfile.role} building cloud-native systems for healthcare, medical imaging AI, SaaS, and production agent workflows.`,
 }
 
 const themeInit = `(function(){try{var t=localStorage.getItem('theme');var d=t?t==='dark':true;document.documentElement.classList.toggle('dark',d)}catch(e){document.documentElement.classList.add('dark')}})()`
