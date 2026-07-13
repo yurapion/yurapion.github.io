@@ -15,12 +15,14 @@ export function Nav() {
     setDark(document.documentElement.classList.contains("dark"))
   }, [])
 
-  const toggle = () => {
-    const next = !dark
-    setDark(next)
-    document.documentElement.classList.toggle("dark", next)
+  function toggleTheme() {
+    const useDarkTheme = !dark
+
+    setDark(useDarkTheme)
+    document.documentElement.classList.toggle("dark", useDarkTheme)
+
     try {
-      localStorage.setItem("theme", next ? "dark" : "light")
+      localStorage.setItem("theme", useDarkTheme ? "dark" : "light")
     } catch {
       // private mode — theme just won't persist
     }
@@ -32,27 +34,28 @@ export function Nav() {
         <a href={routes.home} className="font-medium text-fg">
           Y·P
         </a>
-        <div className="flex items-center gap-5 sm:gap-7">
-          {navLinks.map((l, index) => {
-            const hrefPath = l.href.replace(basePath, "").replace(/#.*$/, "") || "/"
+        <div className="flex items-center gap-4 sm:gap-6">
+          {navLinks.map((link, index) => {
+            const hrefPath = link.href.replace(basePath, "").replace(/#.*$/, "") || "/"
             const active = hrefPath !== "/" && activePath.startsWith(hrefPath)
+
             return (
               <a
-                key={l.href}
-                href={l.href}
+                key={link.href}
+                href={link.href}
                 aria-current={active ? "page" : undefined}
-                className={`link-slide transition-colors hover:text-fg ${
-                  index > 1 ? "hidden sm:inline" : "inline"
+                className={`link-slide py-4 transition-colors hover:text-fg ${
+                  index > 2 ? "hidden sm:inline" : "inline"
                 } ${active ? "text-accent" : "text-muted"}`}
               >
-                {l.label}
+                {link.label}
               </a>
             )
           })}
           <button
-            onClick={toggle}
+            onClick={toggleTheme}
             aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
-            className="flex h-8 w-8 items-center justify-center rounded-full border border-line text-muted transition-colors hover:border-accent hover:text-accent"
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-line text-muted transition-colors hover:border-accent hover:text-accent"
           >
             {dark ? <Sun size={14} /> : <Moon size={14} />}
           </button>

@@ -1,11 +1,9 @@
 import { experience } from "@/data/experience"
 import { Reveal } from "./reveal"
-import { SectionHeading } from "./section-heading"
 
 export function ExperienceSection() {
   return (
-    <section id="experience" className="mx-auto max-w-page px-5 py-24 sm:px-8 sm:py-32">
-      <SectionHeading index="05" title="Experience" />
+    <section id="experience" className="mx-auto max-w-page px-5 pb-24 sm:px-8 sm:pb-32">
       <div className="space-y-16">
         {experience.map((exp) => (
           <Reveal key={exp.id}>

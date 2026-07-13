@@ -38,9 +38,9 @@ export const architectures: ProjectArchitecture[] = [
     pattern: "Event-driven serverless · AWS",
     stats: [
       { value: "9", label: "microservices" },
-      { value: "~252", label: "HTTP events" },
-      { value: "96", label: "SQS resources" },
       { value: "49", label: "locale files" },
+      { value: "AWS", label: "serverless stack" },
+      { value: "NHS", label: "clinical context" },
     ],
     layers: [
       {
@@ -53,7 +53,7 @@ export const architectures: ProjectArchitecture[] = [
       {
         tier: "API & edge",
         nodes: [
-          { label: "API Gateway", note: "~252 HTTP events in source" },
+          { label: "API Gateway", note: "REST across services" },
           { label: "Cognito", note: "auth" },
         ],
       },
@@ -182,7 +182,7 @@ export const architectures: ProjectArchitecture[] = [
     stats: [
       { value: "326", label: "SQL migrations" },
       { value: "14", label: "triggered tables" },
-      { value: "62", label: "table metadata files" },
+      { value: "Hasura", label: "GraphQL core" },
       { value: "30+", label: "venues in CV" },
     ],
     layers: [
@@ -241,16 +241,16 @@ export const architectures: ProjectArchitecture[] = [
     id: "wunder",
     pattern: "Layered Go platform · GraphQL · GitOps",
     stats: [
-      { value: "44", label: "Go services" },
-      { value: "49", label: "Go cmd binaries" },
       { value: "714", label: "Go files" },
+      { value: "49", label: "Go cmd binaries" },
       { value: "6", label: "gqlgen configs" },
+      { value: "3", label: "product surfaces" },
     ],
     layers: [
       {
         tier: "Client",
         nodes: [
-          { label: "Playtime SPA", note: "20 brands · 70 templates · Scandit scan" },
+          { label: "Playtime SPA", note: "branded festival experiences · Scandit" },
           { label: "Target Group", note: "Cytoscape / D3" },
           { label: "LiveMind", note: "iframe + subscription mirror" },
         ],
@@ -294,8 +294,8 @@ export const architectures: ProjectArchitecture[] = [
         body: "Consumer-profiling rules are authored as a declarative rule book that compiles to generated Go. Non-engineers can read the rules; the runtime pays no interpreter tax.",
       },
       {
-        title: "One SPA, twenty brands",
-        body: "Playtime pulls brand config at runtime, so 20 festival brands and 70 template types ship from a single codebase — not 20 forks drifting apart.",
+        title: "One SPA, many brands",
+        body: "Playtime pulls brand config at runtime, so branded festival experiences ship from a single codebase rather than forks that drift apart.",
       },
     ],
     optimizedFor: ["Clear service boundaries", "Rules readable by humans, native at runtime", "One codebase across branded experiences"],

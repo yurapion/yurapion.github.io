@@ -2,6 +2,9 @@ import { ArrowUpRight } from "lucide-react"
 import { routes, siteProfile } from "@/data/site"
 
 const links = [
+  { href: routes.practice, label: "Practice" },
+  { href: routes.notes, label: "Notes" },
+  { href: routes.stack, label: "Stack" },
   { href: siteProfile.linkedin, label: "LinkedIn" },
   { href: siteProfile.github, label: "GitHub" },
   { href: routes.cv, label: "CV (PDF)" },
@@ -23,18 +26,25 @@ export function Footer() {
         {siteProfile.email}
       </a>
       <div className="mt-12 flex flex-wrap items-center gap-6 border-t border-line pt-8">
-        {links.map((l) => (
-          <a
-            key={l.label}
-            href={l.href}
-            target={l.href.startsWith("http") ? "_blank" : undefined}
-            rel={l.href.startsWith("http") ? "noreferrer" : undefined}
-            className="group inline-flex items-center gap-1.5 font-mono text-sm text-muted transition-colors hover:text-accent"
-          >
-            {l.label}
-            <ArrowUpRight size={13} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-          </a>
-        ))}
+        {links.map((link) => {
+          const isExternal = link.href.startsWith("http")
+
+          return (
+            <a
+              key={link.label}
+              href={link.href}
+              target={isExternal ? "_blank" : undefined}
+              rel={isExternal ? "noreferrer" : undefined}
+              className="group inline-flex items-center gap-1.5 font-mono text-sm text-muted transition-colors hover:text-accent"
+            >
+              {link.label}
+              <ArrowUpRight
+                size={13}
+                className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+              />
+            </a>
+          )
+        })}
         <p className="ml-auto font-mono text-xs text-muted">
           {siteProfile.location} · English · Ukrainian
         </p>

@@ -1,16 +1,10 @@
 import { aiEngineering } from "@/data/ai-engineering"
 import { Reveal } from "./reveal"
-import { SectionHeading } from "./section-heading"
 
 export function AIEngineering() {
   return (
     <section id="ai" className="border-y border-line bg-surface">
-      <div className="mx-auto max-w-page px-5 py-24 sm:px-8 sm:py-32">
-        <SectionHeading
-          index="03"
-          title="AI engineering, in production"
-          lede="The hard part of AI in production is everything around the model: runbooks, verification, guardrails. I design agent workflows that operate real systems, and build products where the deterministic core stays deterministic."
-        />
+      <div className="mx-auto max-w-page px-5 py-16 sm:px-8 sm:py-24">
         <div className="grid gap-6 md:grid-cols-2">
           {aiEngineering.map((work, i) => (
             <Reveal key={work.id} delay={(i % 2) * 90}>

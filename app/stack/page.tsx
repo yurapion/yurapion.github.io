@@ -4,7 +4,7 @@ import { Nav } from "@/components/site/nav"
 import { SkillsSection } from "@/components/site/skills-section"
 
 export const metadata: Metadata = {
-  title: "Stack - Yurii Piontkovskyi",
+  title: "Stack",
   description: "Technical stack grouped by use case: languages, frontend, backend, cloud, data, DevOps, and AI engineering.",
 }
 

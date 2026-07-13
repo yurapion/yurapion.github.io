@@ -5,7 +5,7 @@ import { Nav } from "@/components/site/nav"
 import { routes, siteProfile } from "@/data/site"
 
 export const metadata: Metadata = {
-  title: "Experience - Yurii Piontkovskyi",
+  title: "Experience",
   description: "Professional timeline for Yurii Piontkovskyi, senior full-stack engineer.",
 }
 

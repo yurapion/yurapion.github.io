@@ -1,12 +1,10 @@
 import { compliance, skillGroups } from "@/data/skills"
 import { Reveal } from "./reveal"
-import { SectionHeading } from "./section-heading"
 
 export function SkillsSection() {
   return (
     <section id="skills" className="border-y border-line bg-surface">
-      <div className="mx-auto max-w-page px-5 py-24 sm:px-8 sm:py-32">
-        <SectionHeading index="06" title="Stack" />
+      <div className="mx-auto max-w-page px-5 py-16 sm:px-8 sm:py-24">
         <dl className="divide-y divide-line border-y border-line">
           {skillGroups.map((group) => (
             <Reveal key={group.id}>

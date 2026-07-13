@@ -33,7 +33,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
     notFound()
   }
 
-  const arch = getArchitecture(project.id)
+  const architecture = getArchitecture(project.id)
   const note = getNoteForProject(project.id)
 
   return (
@@ -86,10 +86,10 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           </div>
         </section>
 
-        {arch && (
+        {architecture && (
           <section className="border-b border-line py-12">
             <div className="grid gap-6 sm:grid-cols-4">
-              {arch.stats.map((stat) => (
+              {architecture.stats.map((stat) => (
                 <div key={stat.label} className="rounded-lg border border-line bg-surface p-5">
                   <p className="font-display text-4xl leading-none">{stat.value}</p>
                   <p className="mt-2 font-mono text-[11px] uppercase leading-tight tracking-[0.14em] text-muted">
@@ -99,7 +99,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
               ))}
             </div>
             <div className="mt-8">
-              <ArchitectureDiagram arch={arch} />
+              <ArchitectureDiagram arch={architecture} />
             </div>
           </section>
         )}
@@ -132,7 +132,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             </ul>
           </div>
           <div>
-            <p className="font-mono text-xs uppercase tracking-[0.18em] text-accent">Proof I can cite</p>
+            <p className="font-mono text-xs uppercase tracking-[0.18em] text-accent">Evidence</p>
             <ul className="mt-5 space-y-3">
               {project.proof.map((item) => (
                 <li key={item} className="flex gap-3 text-sm leading-relaxed text-muted">
@@ -144,7 +144,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           </div>
         </section>
 
-        {arch && (
+        {architecture && (
           <section className="grid gap-10 border-b border-line py-12 lg:grid-cols-[320px,1fr]">
             <div>
               <p className="font-mono text-xs uppercase tracking-[0.18em] text-accent">Decisions</p>
@@ -153,7 +153,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
               </p>
             </div>
             <div className="space-y-6">
-              {arch.decisions.map((decision) => (
+              {architecture.decisions.map((decision) => (
                 <article key={decision.title} className="border-l border-line pl-5">
                   <h2 className="font-display text-2xl">{decision.title}</h2>
                   <p className="mt-2 leading-relaxed text-muted">{decision.body}</p>
@@ -163,13 +163,13 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           </section>
         )}
 
-        {arch && (
+        {architecture && (
           <section className="py-12">
             <p className="font-mono text-xs uppercase tracking-[0.18em] text-accent">Revisit</p>
-            <p className="mt-4 max-w-3xl text-lg leading-relaxed text-muted">{arch.retro}</p>
+            <p className="mt-4 max-w-3xl text-lg leading-relaxed text-muted">{architecture.retro}</p>
             {note && (
               <a
-                href={`${routes.home}notes/${note.slug}/`}
+                href={`${routes.notes}${note.slug}/`}
                 className="mt-8 inline-flex items-center gap-1.5 rounded-full border border-line px-5 py-2.5 font-mono text-xs uppercase tracking-[0.16em] text-fg transition-colors hover:border-accent hover:text-accent"
               >
                 Read design note

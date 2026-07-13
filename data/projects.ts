@@ -37,21 +37,20 @@ export const caseStudies: CaseStudy[] = [
       "Translate and maintain a clinical content library across many languages without throttling third-party APIs, losing jobs, or overwriting human-verified clinical wording.",
     architecture: [
       "9 independently deployable Node.js/TypeScript serverless services on AWS Lambda, API Gateway, DynamoDB, SQS/SNS, S3, and Cognito",
-      "Local backend source contains roughly 252 HTTP event declarations and 96 SQS queue resources across service configurations",
       "Translation rollout model uses language-specific queues, batching, dead-letter handling, and CloudWatch → SNS → Slack alerting",
       "NHS data compliance work includes encrypted transcript storage, multi-year retention, and HMAC verification on Xero webhooks",
       "Feature-flagged vendor migration path (SSM-driven routing) that let the platform swap translation providers without forking the codebase",
       "React Native mobile app source includes 49 locale files, Cognito/AWS SDK integration, Azure speech, and i18n support",
     ],
     outcomes: [
-      "Current CV records deployment across 20+ NHS trusts",
-      "Current CV records 100k+ translation jobs/month without API throttling",
+      "Deployed across 20+ NHS trusts (CV / delivery record)",
+      "100k+ translation jobs/month without API throttling (CV / delivery record)",
       "Human-verified translations protected by design — machine re-runs can never overwrite them",
     ],
     proof: [
       "Backend source: 9 top-level serverless services",
-      "Backend source: ~252 HTTP event declarations",
       "Mobile source: 49 locale JSON files",
+      "Backend source: language-sharded SQS translation lanes with DLQ alerting",
       "CV/delivery record: 20+ NHS trusts and 100k+ jobs/month",
     ],
     evidenceNote:
@@ -82,7 +81,7 @@ export const caseStudies: CaseStudy[] = [
       "React 18 + Vite SPA with SignalR pushing AI grading results live; Konva-based image interaction; Testcontainers + SonarQube + dotCover in Bitbucket Pipelines; Terraform-managed Azure infra",
     ],
     outcomes: [
-      "Current CV records 5,000+ retinal screenings processed across pilot clinics",
+      "5,000+ retinal screenings across pilot clinics (CV / delivery record)",
       "Realtime grading UX — clinicians see AI results as they land, over SignalR",
       "Integration-tested against real PostgreSQL containers, not mocks",
     ],
@@ -120,14 +119,14 @@ export const caseStudies: CaseStudy[] = [
       "React operations platform with Apollo split-link subscriptions (live order board over WebSocket), Material-UI, DevExpress Scheduler, drag-and-drop; Docker Compose + Traefik local dev",
     ],
     outcomes: [
-      "Current CV records live use across 30+ venues on one codebase",
+      "Live across 30+ venues on one codebase (CV / delivery record)",
       "PayPal, Dojo, Deliverect, and Xero integrated behind one webhook architecture",
       "Tenant isolation enforced at the row level, not in application code",
     ],
     proof: [
       "Source count: 326 SQL migration versions",
-      "Source count: 62 Hasura table metadata files",
-      "Source count: 14 trigger-enabled tables",
+      "Source count: 14 trigger-enabled Hasura tables",
+      "Source evidence: Cognito → Hasura JWT bridge with row-level tenant isolation",
       "CV/delivery record: 30+ live venues",
     ],
     evidenceNote:
@@ -138,7 +137,7 @@ export const caseStudies: CaseStudy[] = [
   {
     id: "wunder",
     name: "Wunder AI / cosnova",
-    tagline: "One platform, twenty brand experiences, festival-scale traffic",
+    tagline: "One platform behind festival apps and B2B insight tools",
     org: "Wunder AI",
     period: "2020 — 2023",
     domain: "Consumer media & insights",
@@ -159,7 +158,7 @@ export const caseStudies: CaseStudy[] = [
       "Drone → Kaniko → ACR delivery and Kubernetes/GitOps patterns are present in the platform history; Prometheus metrics are visible in GraphQL layers",
     ],
     outcomes: [
-      "Current CV records 100k+ festival attendees reached through Playtime experiences",
+      "100k+ festival attendees reached through Playtime (CV / delivery record)",
       "Realtime consumer-to-B2B session mirroring shipped on shared GraphQL subscriptions",
       "One monorepo platform behind every consumer and B2B product",
     ],
@@ -170,7 +169,7 @@ export const caseStudies: CaseStudy[] = [
       "CV/delivery record: 100k+ festival attendees",
     ],
     evidenceNote:
-      "Source verified from `cosnova-mono`, `playtime-festival-quiz`, and `target-group-frontend`. Attendee reach and 20-brand framing are CV-carried.",
+      "Source verified from `cosnova-mono`, `playtime-festival-quiz`, and `target-group-frontend`. Attendee reach is CV-carried.",
     stack: ["React", "TypeScript", "Go", "gqlgen", "Apollo", "Dgraph", "Kafka", "Redis", "Kubernetes", "ArgoCD"],
     featured: true,
   },

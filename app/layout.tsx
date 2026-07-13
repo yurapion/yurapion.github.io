@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import { Fraunces, IBM_Plex_Mono, Instrument_Sans } from "next/font/google"
-import { siteProfile } from "@/data/site"
+import { siteProfile, siteUrl } from "@/data/site"
 import "./globals.css"
 
 const display = Fraunces({
@@ -20,10 +20,34 @@ const sans = Instrument_Sans({
   subsets: ["latin"],
 })
 
+const description = `${siteProfile.role} building cloud-native systems for healthcare, medical imaging AI, SaaS, and production agent workflows.`
+
 export const metadata: Metadata = {
-  title: "Yurii Piontkovskyi — Senior Full-Stack Engineer",
-  description:
-    `${siteProfile.role} building cloud-native systems for healthcare, medical imaging AI, SaaS, and production agent workflows.`,
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: `${siteProfile.name} — ${siteProfile.role}`,
+    template: `%s — ${siteProfile.name}`,
+  },
+  description,
+  applicationName: siteProfile.name,
+  authors: [{ name: siteProfile.name, url: siteUrl }],
+  creator: siteProfile.name,
+  openGraph: {
+    type: "website",
+    url: siteUrl,
+    siteName: `${siteProfile.name} — Portfolio`,
+    title: `${siteProfile.name} — ${siteProfile.role}`,
+    description,
+    locale: "en_GB",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${siteProfile.name} — ${siteProfile.role}`,
+    description,
+  },
+  alternates: {
+    canonical: siteUrl,
+  },
 }
 
 const themeInit = `(function(){try{var t=localStorage.getItem('theme');var d=t?t==='dark':true;document.documentElement.classList.toggle('dark',d)}catch(e){document.documentElement.classList.add('dark')}})()`

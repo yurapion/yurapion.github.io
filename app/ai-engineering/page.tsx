@@ -5,7 +5,7 @@ import { AIEngineering } from "@/components/site/ai-engineering"
 import { principles } from "@/data/principles"
 
 export const metadata: Metadata = {
-  title: "AI Engineering - Yurii Piontkovskyi",
+  title: "AI Engineering",
   description: "Production agent workflows, multi-agent development, codebase knowledge graphs, and AI-first product work.",
 }
 

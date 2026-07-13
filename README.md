@@ -9,11 +9,14 @@ current CV / delivery record. The copy now calls out which is which.
 
 ## What's here
 
-- **Home** — fast overview with CV/contact links and clear entry points.
+- **Home** — overview, what I'm looking for, CV/contact, and entry points.
 - **Selected work** — four case studies: CardMedic, AI Sight Suite, AccentPOS, and
   Wunder AI / cosnova.
+- **Practice** — architecture, DevOps, planning, client work, and small-team leadership
+  shown through concrete delivery examples.
 - **AI engineering** — production runbooks, multi-agent workflows, graphify, and DevPrep.
-- **Experience, stack, contact.**
+- **Experience, stack, engineering notes, contact.**
+- **Evidence policy** — how source-counted facts differ from CV/delivery metrics.
 
 ## Stack
 
@@ -29,9 +32,9 @@ npm run dev      # http://localhost:3000/newportfolio
 npm run build    # static export to ./out
 ```
 
-Content lives in `data/` (`projects.ts`, `experience.ts`, `ai-engineering.ts`,
-`skills.ts`); sections are in `components/site/`. Deployed to GitHub Pages via
-`.github/workflows` (hence the `/newportfolio` base path).
+Content lives in `data/` (`projects.ts`, `practice.ts`, `notes.ts`, `experience.ts`,
+`ai-engineering.ts`, and `skills.ts`); sections are in `components/site/`. Deployed to
+GitHub Pages via `.github/workflows` (hence the `/newportfolio` base path).
 
 If GitHub Pages shows this README instead of the app, the repository Pages source is set
 to "Deploy from a branch". Change Settings -> Pages -> Build and deployment -> Source to
