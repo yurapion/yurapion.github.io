@@ -1,5 +1,5 @@
-export const basePath = "/newportfolio"
-export const siteUrl = "https://yurapion.github.io/newportfolio"
+export const basePath = ""
+export const siteUrl = "https://yurapion.github.io"
 
 export const routes = {
   home: `${basePath}/`,

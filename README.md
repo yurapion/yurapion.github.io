@@ -28,13 +28,13 @@ toggle; no runtime UI dependencies beyond `lucide-react`.
 
 ```bash
 npm install
-npm run dev      # http://localhost:3000/newportfolio
+npm run dev      # http://localhost:3000
 npm run build    # static export to ./out
 ```
 
 Content lives in `data/` (`projects.ts`, `practice.ts`, `notes.ts`, `experience.ts`,
 `ai-engineering.ts`, and `skills.ts`); sections are in `components/site/`. Deployed to
-GitHub Pages via `.github/workflows` (hence the `/newportfolio` base path).
+GitHub Pages via `.github/workflows` as the user site at https://yurapion.github.io.
 
 If GitHub Pages shows this README instead of the app, the repository Pages source is set
 to "Deploy from a branch". Change Settings -> Pages -> Build and deployment -> Source to

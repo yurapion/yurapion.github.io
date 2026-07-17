@@ -74,7 +74,7 @@ export const notes: Note[] = [
     sections: [
       {
         paras: [
-          "CardMedic keeps a clinical content library in sync across many languages; the local mobile source contains 49 locale files. Two constraints shape everything else. A translation job can't silently vanish. And a machine translation can never overwrite wording a clinician has verified.",
+          "CardMedic keeps a clinical content library in sync across many languages; the local mobile source contains 55 locale files. Two constraints shape everything else. A translation job can't silently vanish. And a machine translation can never overwrite wording a clinician has verified.",
           "At more than 100,000 jobs a month, both have to hold without anyone watching the screen.",
         ],
       },

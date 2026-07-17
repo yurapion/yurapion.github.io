@@ -46,7 +46,7 @@ export const architectures: ProjectArchitecture[] = [
       {
         tier: "Client",
         nodes: [
-          { label: "React Native app", note: "49 locale files · i18n" },
+          { label: "Flutter app", note: "55 locale files · i18n" },
           { label: "React admin platform" },
         ],
       },

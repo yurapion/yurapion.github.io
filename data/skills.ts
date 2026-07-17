@@ -13,7 +13,7 @@ export const skillGroups: SkillGroup[] = [
   {
     id: "frontend",
     label: "Frontend",
-    items: ["React 17–18", "Vite", "Redux Toolkit", "React Query", "Apollo Client", "MUI", "React Native", "Flutter", "Riverpod"],
+    items: ["React 17–18", "Vite", "Redux Toolkit", "React Query", "Apollo Client", "MUI", "Flutter", "Riverpod"],
   },
   {
     id: "backend",

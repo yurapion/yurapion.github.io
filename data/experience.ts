@@ -24,7 +24,7 @@ export const experience: Experience[] = [
       "Designed AccentPOS's Hasura + Fastify platform with PostgreSQL schema-as-code (326 migrations)",
       "Direct client communication on priorities, trade-offs, and delivery timelines; mentored juniors through code-level guidance and PR reviews",
     ],
-    stack: ["TypeScript", "Node.js", "C# / .NET", "React", "React Native", "AWS", "Azure", "PostgreSQL", "Terraform"],
+    stack: ["TypeScript", "Node.js", "C# / .NET", "React", "Flutter", "AWS", "Azure", "PostgreSQL", "Terraform"],
   },
   {
     id: "wunder",

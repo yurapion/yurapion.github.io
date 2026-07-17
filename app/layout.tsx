@@ -39,11 +39,13 @@ export const metadata: Metadata = {
     title: `${siteProfile.name} — ${siteProfile.role}`,
     description,
     locale: "en_GB",
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: `${siteProfile.name} — ${siteProfile.role}` }],
   },
   twitter: {
     card: "summary_large_image",
     title: `${siteProfile.name} — ${siteProfile.role}`,
     description,
+    images: ["/og.png"],
   },
   alternates: {
     canonical: siteUrl,

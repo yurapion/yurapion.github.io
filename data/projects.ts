@@ -40,7 +40,7 @@ export const caseStudies: CaseStudy[] = [
       "Translation rollout model uses language-specific queues, batching, dead-letter handling, and CloudWatch → SNS → Slack alerting",
       "NHS data compliance work includes encrypted transcript storage, multi-year retention, and HMAC verification on Xero webhooks",
       "Feature-flagged vendor migration path (SSM-driven routing) that let the platform swap translation providers without forking the codebase",
-      "React Native mobile app source includes 49 locale files, Cognito/AWS SDK integration, Azure speech, and i18n support",
+      "Flutter mobile app source includes 55 locale files, Cognito/AWS SDK integration, Azure speech, and i18n support",
     ],
     outcomes: [
       "Deployed across 20+ NHS trusts (CV / delivery record)",
@@ -49,13 +49,13 @@ export const caseStudies: CaseStudy[] = [
     ],
     proof: [
       "Backend source: 9 top-level serverless services",
-      "Mobile source: 49 locale JSON files",
+      "Mobile source: 55 locale JSON files",
       "Backend source: language-sharded SQS translation lanes with DLQ alerting",
       "CV/delivery record: 20+ NHS trusts and 100k+ jobs/month",
     ],
     evidenceNote:
-      "Backend verified from local `cardmedic-cms`; mobile stack verified from local React Native repo. Business rollout and monthly throughput are carried from the current CV.",
-    stack: ["TypeScript", "Node.js", "AWS Lambda", "DynamoDB", "SQS/SNS", "Cognito", "React Native", "React", "GitHub Actions"],
+      "Backend verified from local `cardmedic-cms`; mobile stack verified from local Flutter repo. Business rollout and monthly throughput are carried from the current CV.",
+    stack: ["TypeScript", "Node.js", "AWS Lambda", "DynamoDB", "SQS/SNS", "Cognito", "Flutter", "React", "GitHub Actions"],
     featured: true,
   },
   {
