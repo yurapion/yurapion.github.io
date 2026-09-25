@@ -18,13 +18,13 @@ export const skillGroups: SkillGroup[] = [
   {
     id: "backend",
     label: "Backend",
-    items: ["Node.js", "Fastify", "ASP.NET Core", "MediatR", "GraphQL (Hasura, Apollo, gqlgen)", "REST APIs"],
+    items: ["Node.js", "NestJS", "Fastify", "ASP.NET Core", "MediatR", "GraphQL (Hasura, Apollo, gqlgen)", "REST APIs"],
   },
   {
     id: "cloud",
     label: "Cloud & Infra",
     items: [
-      "AWS (Lambda, SQS, DynamoDB, S3, Cognito, SageMaker)",
+      "AWS (Lambda, SQS, DynamoDB, S3, Cognito, SageMaker, ECS)",
       "Azure (App Service, AD B2C, Blob, PostgreSQL)",
       "Docker",
       "Kubernetes",
@@ -34,7 +34,7 @@ export const skillGroups: SkillGroup[] = [
   {
     id: "data",
     label: "Data",
-    items: ["PostgreSQL", "DynamoDB", "Dgraph", "Redis-compatible stores", "Kafka", "EF Core", "Hasura"],
+    items: ["PostgreSQL", "TypeORM", "InfluxDB", "DynamoDB", "Dgraph", "Redis-compatible stores", "Kafka", "EF Core", "Hasura"],
   },
   {
     id: "devops",
@@ -69,5 +69,5 @@ export const compliance = [
   "AES encryption at rest, S3 SSE, HMAC verification",
   "NHS / clinical multi-year retention (5, 8, 10-year tiers)",
   "OAuth2, Cognito, Azure AD B2C, JWT",
-  "Tenant & role-scoped access (Hasura session variables, claims)",
+  "Tenant & role-scoped access (PostgreSQL row-level security, Hasura session variables, claims)",
 ]

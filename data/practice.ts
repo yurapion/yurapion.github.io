@@ -22,6 +22,7 @@ export const practiceAreas: PracticeArea[] = [
     summary:
       "I design systems around failure modes, operational constraints, and the people using them. Technology choices follow those constraints.",
     evidence: [
+      "PostgreSQL row-level security as the tenant boundary on a clinical headset platform",
       "Cross-cloud clinical inference across Azure and AWS SageMaker",
       "Hasura for declarative data access with Fastify for integration side effects",
       "Language-sharded translation processing with protected clinical content",
@@ -106,6 +107,7 @@ export const practiceAreas: PracticeArea[] = [
     summary:
       "I can own a product independently, and I can coordinate a small team when delivery needs more hands. My job is to make priorities and engineering expectations clear.",
     evidence: [
+      "Direct an engineer on the Evolve cloud platform: schema, authentication, and tenancy rules",
       "Onboarding and task allocation for a small engineering team",
       "Code and work reviews with practical direction on next steps",
       "Hands-on support for juniors learning the development process",

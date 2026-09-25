@@ -11,7 +11,7 @@ const entryPoints = [
     href: routes.work,
     label: "Selected work",
     title: "Production systems with proof",
-    body: "CardMedic, AI Sight Suite, AccentPOS, and Wunder AI/cosnova. Depth lives on the case-study pages.",
+    body: "Evolve, CardMedic, AI Sight Suite, AccentPOS, and Wunder AI/cosnova. Depth lives on the case-study pages.",
   },
   {
     href: routes.practice,
@@ -29,7 +29,7 @@ const entryPoints = [
     href: routes.experience,
     label: "Experience",
     title: "CV without the noise",
-    body: "A concise timeline across Blum Health, Wunder AI, and independent client-direct delivery.",
+    body: "A concise timeline across Evolve, Blum Health, Wunder AI, and independent client-direct delivery.",
   },
 ]
 
@@ -85,11 +85,11 @@ export default function Home() {
             >
               <div>
                 <dt className="font-mono text-xs uppercase tracking-[0.18em] text-muted">Current</dt>
-                <dd className="mt-2 text-sm text-fg">Senior Full-Stack Engineer, Blum Health</dd>
+                <dd className="mt-2 text-sm text-fg">{siteProfile.current}</dd>
               </div>
               <div>
                 <dt className="font-mono text-xs uppercase tracking-[0.18em] text-muted">Focus</dt>
-                <dd className="mt-2 text-sm text-fg">Distributed systems · clinical AI · agentic delivery</dd>
+                <dd className="mt-2 text-sm text-fg">Clinical cloud · multi-tenant data · agentic delivery</dd>
               </div>
               <div>
                 <dt className="font-mono text-xs uppercase tracking-[0.18em] text-muted">Location</dt>
@@ -156,8 +156,8 @@ export default function Home() {
               <p className="font-mono text-xs uppercase tracking-[0.18em] text-accent">Selected work</p>
               <h2 className="mt-4 font-display text-4xl leading-tight sm:text-5xl">Real projects, real constraints.</h2>
               <p className="mt-5 max-w-xl leading-relaxed text-muted">
-                Four systems with different hard problems: clinical translation at scale, regulated imaging AI,
-                multi-tenant commerce, and a shared consumer/B2B platform.
+                Five systems with different hard problems: a clinical headset cloud, clinical translation at scale,
+                regulated imaging AI, multi-tenant commerce, and a shared consumer/B2B platform.
               </p>
             </div>
             <div className="grid gap-3">

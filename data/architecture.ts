@@ -34,6 +34,77 @@ export interface ProjectArchitecture {
 
 export const architectures: ProjectArchitecture[] = [
   {
+    id: "evolve",
+    pattern: "Multi-tenant clinical cloud · AWS",
+    stats: [
+      { value: "19", label: "application tables" },
+      { value: "33", label: "TypeORM migrations" },
+      { value: "RLS", label: "tenant boundary" },
+      { value: "Cognito", label: "operator and device identity" },
+    ],
+    layers: [
+      {
+        tier: "Client",
+        nodes: [
+          { label: "React operator app", note: "Vite · session, signal quality, live traces" },
+          { label: "Headset", note: "device credential, resolved to an organization" },
+        ],
+      },
+      {
+        tier: "API",
+        nodes: [
+          { label: "NestJS REST", note: "sessions, exports, participants" },
+          { label: "Socket.IO gateway", note: "headset and operator on one session", accent: true },
+        ],
+      },
+      {
+        tier: "Identity",
+        nodes: [{ label: "Cognito", note: "token decides the organization", accent: true }],
+      },
+      {
+        tier: "Data",
+        nodes: [
+          { label: "PostgreSQL", note: "19 tables · RLS · org foreign keys", accent: true },
+          { label: "InfluxDB", note: "sensor samples" },
+          { label: "Kafka", note: "sensor stream and export jobs" },
+        ],
+      },
+      {
+        tier: "Platform",
+        nodes: [
+          { label: "ECS" },
+          { label: "Terraform" },
+          { label: "GitHub Actions" },
+        ],
+      },
+    ],
+    decisions: [
+      {
+        title: "One place enforces the tenant",
+        body: "Application data is in PostgreSQL. A session's foreign keys include the organization, and row-level security uses the same key. Sensor samples stay in InfluxDB. Two stores, one tenant rule, and that rule is not a WHERE clause the next query can forget.",
+      },
+      {
+        title: "The role that connects does not own the tables",
+        body: "PostgreSQL lets a table owner bypass row-level security without an error. The service connects as a separate role, so the policies actually run.",
+      },
+      {
+        title: "The token picks the organization",
+        body: "Operators and devices authenticate with Cognito. The organization comes from the token, and a device credential resolves to the organization that owns the headset.",
+      },
+      {
+        title: "Queue the export on Kafka that is already there",
+        body: "Export jobs travel on the Kafka cluster already running in every environment. The data_exports row is the source of truth for status. I own that decision.",
+      },
+    ],
+    optimizedFor: [
+      "A missed filter cannot cross an organization",
+      "Identity and membership stay in different systems",
+      "No new queue technology before the export path exists",
+    ],
+    retro:
+      "Connection state is written on every connect and disconnect, in the same PostgreSQL instance as the durable session rows. One tenant boundary mattered more than a second store. If that traffic contends with the session rows, I would move the hot table and leave the foreign keys where they are.",
+  },
+  {
     id: "cardmedic",
     pattern: "Event-driven serverless · AWS",
     stats: [

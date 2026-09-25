@@ -22,6 +22,45 @@ export interface CaseStudy {
 // of presenting business outcomes as source-code counts.
 export const caseStudies: CaseStudy[] = [
   {
+    id: "evolve",
+    name: "Evolve",
+    tagline: "The database keeps one organization out of another's session",
+    org: "Evolve",
+    period: "2026 — Present",
+    domain: "Clinical VR / cloud",
+    angle: "Identity, the application schema, and the rules that enforce tenancy",
+    context:
+      "Cloud platform for a clinical VR headset. An operator runs a session, the headset streams biosensor samples, and the recording has to stay inside the organization that owns the device and the participant.",
+    role:
+      "Staff engineer. I own the architecture across identity, the application database, and the operator product, and I direct another engineer who builds it with me.",
+    problem:
+      "Partner-site staff and a headset have to share a session without one organization reading another's participants, devices, or recordings. The store for that application data had to be chosen, and the rules had to hold even when a query forgets its filter.",
+    architecture: [
+      "PostgreSQL is the application store: 19 tables in 33 TypeORM migrations, covering organizations, devices, sessions, participants, connections, and exports. Sensor samples stay in InfluxDB",
+      "A session's foreign keys include the organization, so the schema refuses a participant or device from another organization",
+      "Row-level security is keyed on the organization. The service connects as a role that does not own the tables, because a table owner bypasses those policies without an error",
+      "Cognito identifies operators and devices. The token decides the organization. A device credential resolves to the organization that owns the headset",
+      "NestJS serves the REST API and the Socket.IO gateway. Export jobs travel on the Kafka cluster already running in every environment, and the data_exports row is the source of truth for status",
+      "React 18 operator application on Vite: create and start a session, signal quality, live sensor traces, and a CSV download that returns an error when the export fails",
+    ],
+    outcomes: [
+      "Tenant isolation sits in the schema and in row-level security, so a missed filter does not become a cross-organization read",
+      "The token decides which organization a request acts on",
+      "An operator can run a live headset session and download a CSV that fails visibly",
+    ],
+    proof: [
+      "Source count: 19 tables and 33 TypeORM migrations in the local monorepo",
+      "Source evidence: session foreign keys include organization_id for both participant and device",
+      "Source evidence: row-level security policies keyed on the organization, and an application role that is not the table owner",
+      "Source evidence: the export-queue decision record names me as decision owner",
+      "Source count: 100 commits on main under my name, 3 Sep 2026 to 24 Sep 2026",
+    ],
+    evidenceNote:
+      "Schema, policies, and the export-queue decision verified from the local evolve-cloud monorepo and shared-docs. I direct another engineer on this platform, so the migration and auth history includes their commits. The 100 commits are the ones on main under my name.",
+    stack: ["TypeScript", "NestJS", "React 18", "PostgreSQL", "TypeORM", "AWS Cognito", "Kafka", "InfluxDB", "Terraform", "ECS"],
+    featured: true,
+  },
+  {
     id: "cardmedic",
     name: "CardMedic",
     tagline: "Healthcare communication at NHS scale",

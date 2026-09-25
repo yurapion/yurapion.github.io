@@ -6,7 +6,7 @@ import { Footer } from "@/components/site/footer"
 
 export const metadata: Metadata = {
   title: "Selected Work",
-  description: "Verified case studies from healthcare, clinical AI, hospitality SaaS, and consumer media platforms.",
+  description: "Verified case studies from a clinical headset cloud, healthcare, clinical AI, hospitality SaaS, and consumer media platforms.",
 }
 
 export default function WorkPage() {

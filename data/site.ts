@@ -15,13 +15,14 @@ export const routes = {
 
 export const siteProfile = {
   name: "Yurii Piontkovskyi",
-  role: "Senior Full-Stack Engineer",
+  role: "Staff Engineer",
   positioning:
-    "Cloud-native systems, clinical AI, SaaS platforms, and production-grade agentic development.",
+    "Clinical cloud platforms, multi-tenant systems, SaaS, and production agent workflows.",
   headline:
-    "Senior full-stack engineer who ships production systems and the agent workflows that keep them moving.",
+    "Staff engineer who ships production systems and the agent workflows that keep them moving.",
   summary:
-    "8+ years across healthcare, medical imaging AI, consumer media, and SaaS. I own architecture and delivery end to end, and I use agents as a verified engineering multiplier rather than a demo.",
+    "8+ years across healthcare, medical imaging AI, consumer media, and SaaS. At Evolve I own the cloud architecture for a clinical VR headset: identity, the application database, and the operator product. I use agents as a verified engineering multiplier.",
+  current: "Staff Engineer, Evolve",
   location: "Remote — open to UK / EU / Global",
   email: "yurapion@gmail.com",
   linkedin: "https://www.linkedin.com/in/yuryi-piontkovskyi-240a74131",
@@ -31,11 +32,12 @@ export const siteProfile = {
 export const lookingFor = {
   title: "What I'm looking for",
   roles: [
+    "Staff Engineer",
     "Senior Full-Stack Engineer",
     "AI Engineer / Agentic Systems",
     "Platform or Product Engineer",
   ],
-  contexts: ["Healthcare", "Clinical AI", "SaaS platforms", "Remote UK / EU / Global"],
+  contexts: ["Healthcare", "Clinical devices", "Clinical AI", "SaaS platforms", "Remote UK / EU / Global"],
   note: "Best fit: complex production systems where architecture, delivery, and verification all matter.",
 }
 

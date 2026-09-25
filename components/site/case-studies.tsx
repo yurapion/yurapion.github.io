@@ -12,7 +12,7 @@ export function CaseStudies() {
       <SectionHeading
         index="01"
         title="Selected work"
-        lede="Four systems, four different problems. Open a case study for architecture, decisions, and the evidence behind each claim."
+        lede="Five systems, five different problems. Open a case study for architecture, decisions, and the evidence behind each claim."
       />
       <div className="space-y-8">
         {caseStudies.map((caseStudy, index) => {

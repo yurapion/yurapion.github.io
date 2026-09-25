@@ -11,6 +11,23 @@ export interface Experience {
 
 export const experience: Experience[] = [
   {
+    id: "evolve",
+    company: "Evolve",
+    role: "Staff Engineer",
+    period: "Sep 2026 — Present",
+    location: "Remote",
+    summary:
+      "Staff engineer on the cloud platform for a clinical VR headset. I own the architecture across identity, the application database, and the operator product, and I direct another engineer on that platform.",
+    highlights: [
+      "PostgreSQL holds the application data: 19 tables and 33 TypeORM migrations. A session cannot point at a participant or device from another organization, and row-level security still applies when a query forgets its filter",
+      "The service connects as a role that does not own the tables. A table owner bypasses row-level security without an error, so that connection would make the tenant rules look present and do nothing",
+      "Operator and device identity sit in Cognito. The token decides the organization, and a device credential resolves to the organization that owns the headset",
+      "I ship the operator application against a live headset: create and start a session, signal quality, live sensor traces, and a CSV export that returns an error when it fails",
+      "Export jobs travel on the Kafka cluster already running in every environment. The data_exports row is the source of truth for status. I own that decision",
+    ],
+    stack: ["TypeScript", "NestJS", "React", "PostgreSQL", "TypeORM", "AWS Cognito", "Kafka", "Terraform"],
+  },
+  {
     id: "blumhealth",
     company: "Blum Health",
     role: "Senior Full-Stack Engineer",
