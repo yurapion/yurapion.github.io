@@ -37,8 +37,8 @@ export const architectures: ProjectArchitecture[] = [
     id: "evolve",
     pattern: "Multi-tenant clinical cloud · AWS",
     stats: [
-      { value: "19", label: "application tables" },
-      { value: "33", label: "TypeORM migrations" },
+      { value: "90", label: "TypeORM migrations" },
+      { value: "46", label: "row-level security policies" },
       { value: "RLS", label: "tenant boundary" },
       { value: "Cognito", label: "operator and device identity" },
     ],
@@ -55,6 +55,7 @@ export const architectures: ProjectArchitecture[] = [
         nodes: [
           { label: "NestJS REST", note: "sessions, exports, participants" },
           { label: "Socket.IO gateway", note: "headset and operator on one session", accent: true },
+          { label: "Session Authority", note: "state machine · takeover under row lock · SKIP LOCKED timers" },
         ],
       },
       {
@@ -64,7 +65,7 @@ export const architectures: ProjectArchitecture[] = [
       {
         tier: "Data",
         nodes: [
-          { label: "PostgreSQL", note: "19 tables · RLS · org foreign keys", accent: true },
+          { label: "PostgreSQL", note: "90 migrations · 46 RLS policies · org on every row", accent: true },
           { label: "InfluxDB", note: "sensor samples" },
           { label: "Kafka", note: "sensor stream and export jobs" },
         ],
@@ -90,6 +91,10 @@ export const architectures: ProjectArchitecture[] = [
       {
         title: "The token picks the organization",
         body: "Operators and devices authenticate with Cognito. The organization comes from the token, and a device credential resolves to the organization that owns the headset.",
+      },
+      {
+        title: "The session lives in the cloud, not on the headset",
+        body: "Session Authority holds the state machine in NestJS, backed by Postgres rows. An operator takeover runs under a row lock, timers are claimed with SKIP LOCKED, and the headset receives typed commands and typed refusals. The device follows the record instead of owning it.",
       },
       {
         title: "Queue the export on Kafka that is already there",

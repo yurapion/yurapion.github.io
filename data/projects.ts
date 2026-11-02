@@ -22,42 +22,80 @@ export interface CaseStudy {
 // of presenting business outcomes as source-code counts.
 export const caseStudies: CaseStudy[] = [
   {
+    id: "ygo-console-mcp",
+    name: "YGO Console MCP",
+    tagline: "An agent reads a customer's hotels and leaves feedback, and sees where it is writing first",
+    org: "YGO",
+    period: "Oct 2026 — Present",
+    domain: "B2B travel / agent-facing API",
+    angle: "A remote MCP server on a Go backend, with write tools that preview before they write",
+    context:
+      "YGO licenses an AI travel platform to tour operators. Their staff already use Claude and ChatGPT, and they wanted those assistants to answer questions about their own projects and hotels, and to send a hotel comment to the review team, without a new UI.",
+    role:
+      "AI Product Engineer. I wrote the design doc, ran the spike, and own the server and its tools. Agents write the code through the team's agent chain; I plan, review, and verify each change in production.",
+    problem:
+      "An agent calling a write endpoint on someone else's behalf needs three things the REST API did not give it: a sign-in it can complete on its own, a way to see where a write will land before it commits, and a record of what it asked for and could not get.",
+    architecture: [
+      "A remote Model Context Protocol server with OAuth sign-in on the platform's existing Google login. Claude, ChatGPT, Cursor and Claude Code add it by URL. Every tool is scoped to the projects the signed-in account can already open",
+      "Four tools live: list_projects, list_hotels, send_hotel_feedback, request_capability. Two more built and in review: list_my_feedback and reply_to_feedback",
+      "Write tools run in two steps. The first call returns a preview that names the hotel and project the comment will land on; the second call, with a confirm token, writes. A refusal gives the slot back before any insert",
+      "request_capability records what an agent asked for that the server cannot do yet. The roadmap for the next tools comes from that table rather than from guesswork",
+      "Threaded customer feedback underneath: a migration, one write core shared by the REST API and the MCP, reply endpoints on two API surfaces, and OpenAPI specs. A reply drafted by a model carries an AI-generated marker through every read surface",
+      "Every tool call mirrors one line to a Slack channel: who, which tool, the outcome. The team watches agent traffic without opening logs",
+    ],
+    outcomes: [
+      "A customer can connect their assistant to YGO Console in four steps and ask about their hotels in plain language",
+      "A hotel comment sent by an agent names its destination before it is written, and a wrong destination costs nothing",
+      "The server tells the team what agents want next, in their own words",
+    ],
+    proof: [
+      "Source evidence: the live server at mcp.ygo.ai exposes list_projects, list_hotels, send_hotel_feedback and request_capability",
+      "Source count: 48 commits on main under my name in ygocloud since 7 Oct 2026, across 8 merged pull requests",
+      "Source evidence: the customer install guide covers claude.ai, ChatGPT, Claude Code and Cursor",
+      "Built and in review at the time of writing: list_my_feedback and reply_to_feedback, plus the threaded-reply migration and endpoints",
+    ],
+    evidenceNote:
+      "Tool names and the sign-in flow verified against the live server and the customer install guide. Commit and PR counts are from the ygocloud repository on main. The threaded-reply work is counted as built, not shipped, until it merges.",
+    stack: ["Go", "PostgreSQL", "MCP", "OAuth", "Redis / Asynq", "Slack API", "OpenAPI", "DigitalOcean"],
+    featured: true,
+  },
+  {
     id: "evolve",
     name: "Evolve",
-    tagline: "The database keeps one organization out of another's session",
-    org: "Evolve",
-    period: "2026 — Present",
+    tagline: "A case study became the platform plan, then I shipped it",
+    org: "Evolve (via Honeycomb Software)",
+    period: "Sep 2026 — Nov 2026",
     domain: "Clinical VR / cloud",
-    angle: "Identity, the application schema, and the rules that enforce tenancy",
+    angle: "PostgreSQL, the cloud layer, and session authority moved from the headset into the cloud",
     context:
-      "Cloud platform for a clinical VR headset. An operator runs a session, the headset streams biosensor samples, and the recording has to stay inside the organization that owns the device and the participant.",
+      "Cloud platform for a clinical VR headset with biosensing. An operator at a partner site runs a session, the headset streams sensor samples, and the recording has to stay inside the organization that owns the device and the participant.",
     role:
-      "Staff engineer. I own the architecture across identity, the application database, and the operator product, and I direct another engineer who builds it with me.",
+      "Staff engineer. Before I joined I wrote a case study that proposed the cloud as the trust and session-orchestration plane, PostgreSQL as the application database, and session authority in the cloud. That became the plan. I owned the cloud layer, the database, and the session backend, delivered them with one other engineer, and held code-owner approval on their changes.",
     problem:
-      "Partner-site staff and a headset have to share a session without one organization reading another's participants, devices, or recordings. The store for that application data had to be chosen, and the rules had to hold even when a query forgets its filter.",
+      "The platform had ingest but no trust layer: no application database, no tenant boundary, and the session state lived on the headset. Partner-site staff had to share a session with a device without one organization reading another's participants, devices, or recordings, and the rules had to hold even when a query forgets its filter.",
     architecture: [
-      "PostgreSQL is the application store: 19 tables in 33 TypeORM migrations, covering organizations, devices, sessions, participants, connections, and exports. Sensor samples stay in InfluxDB",
-      "A session's foreign keys include the organization, so the schema refuses a participant or device from another organization",
-      "Row-level security is keyed on the organization. The service connects as a role that does not own the tables, because a table owner bypasses those policies without an error",
-      "Cognito identifies operators and devices. The token decides the organization. A device credential resolves to the organization that owns the headset",
-      "NestJS serves the REST API and the Socket.IO gateway. Export jobs travel on the Kafka cluster already running in every environment, and the data_exports row is the source of truth for status",
-      "React 18 operator application on Vite: create and start a session, signal quality, live sensor traces, and a CSV download that returns an error when the export fails",
+      "PostgreSQL is the application store, introduced by this plan. TypeORM migrations define the schema, with the organization as the tenant key on every row. Sensor samples stay in InfluxDB",
+      "Row-level security is keyed on the organization: 46 policies. Each service connects as its own least-privilege role that does not own the tables, because a table owner bypasses those policies without an error. RDS IAM token sign-in sits behind a switch",
+      "Cognito identifies operators and devices. The token decides the organization, and a device credential resolves to the organization that owns the headset",
+      "Session Authority in NestJS: the session state machine, operator takeover under a row lock, presence reconciliation, timers claimed from Postgres with SKIP LOCKED, and a typed command and refusal contract to the headset over Socket.IO",
+      "The cloud layer in Terraform across five environments: a KMS key per environment for RDS, S3, Redis, MSK and DynamoDB, CloudFront security headers, SES. Seven GitHub Actions workflows for CI, deploys, and Terraform static checks. A LocalStack, Kafka, Redis and InfluxDB stack for local work",
+      "React 18 operator app on Vite for a live headset session: run lifecycle, check-ins, consent, signal quality, live EEG spectra. A reports pipeline behind it: Kafka-backed export and report queues, a report worker, and a conformance-checked contract for the data-science code",
     ],
     outcomes: [
       "Tenant isolation sits in the schema and in row-level security, so a missed filter does not become a cross-organization read",
-      "The token decides which organization a request acts on",
-      "An operator can run a live headset session and download a CSV that fails visibly",
+      "The session is a cloud record with one authority. The headset and the operator app both follow it",
+      "Every environment encrypts its data under its own key, checked live in production, and an operator can run a session and get a report out the other end",
     ],
     proof: [
-      "Source count: 19 tables and 33 TypeORM migrations in the local monorepo",
-      "Source evidence: session foreign keys include organization_id for both participant and device",
-      "Source evidence: row-level security policies keyed on the organization, and an application role that is not the table owner",
-      "Source evidence: the export-queue decision record names me as decision owner",
-      "Source count: 100 commits on main under my name, 3 Sep 2026 to 24 Sep 2026",
+      "Source count: 90 TypeORM migrations and 46 row-level security policies in the local monorepo",
+      "Source count: 270 commits on main under my name, 3 Sep 2026 to 1 Nov 2026",
+      "Source count: five Terraform environments and seven GitHub Actions workflows",
+      "Source evidence: ADRs under my name for the Kafka export queue, signal quality, and per-environment encryption",
+      "Source evidence: the pre-hire case study names PostgreSQL, Cognito identity with Postgres membership, and the session state machine that the repo now contains",
     ],
     evidenceNote:
-      "Schema, policies, and the export-queue decision verified from the local evolve-cloud monorepo and shared-docs. I direct another engineer on this platform, so the migration and auth history includes their commits. The 100 commits are the ones on main under my name.",
-    stack: ["TypeScript", "NestJS", "React 18", "PostgreSQL", "TypeORM", "AWS Cognito", "Kafka", "InfluxDB", "Terraform", "ECS"],
+      "Schema, policies, environments and ADRs verified from the local evolve-cloud monorepo and shared-docs. I worked with one other engineer on this platform, and some of my database-layer commits landed under their account, so the count on main under my name is a floor.",
+    stack: ["TypeScript", "NestJS", "React 18", "PostgreSQL", "TypeORM", "AWS Cognito", "KMS", "Kafka", "InfluxDB", "Terraform", "LocalStack"],
     featured: true,
   },
   {
@@ -65,7 +103,7 @@ export const caseStudies: CaseStudy[] = [
     name: "CardMedic",
     tagline: "Healthcare communication at NHS scale",
     org: "Blum Health",
-    period: "2023 — Present",
+    period: "2023 — 2026",
     domain: "Healthcare / NHS",
     angle: "Event-driven scale under clinical compliance",
     context:
@@ -102,7 +140,7 @@ export const caseStudies: CaseStudy[] = [
     name: "AI Sight Suite",
     tagline: "Clinical imaging AI, built like it's regulated — because it is",
     org: "Blum Health",
-    period: "2024 — Present",
+    period: "2024 — 2026",
     domain: "Medical imaging / AI",
     angle: "Cross-cloud AI inference inside a strict clinical domain model",
     context:
@@ -140,7 +178,7 @@ export const caseStudies: CaseStudy[] = [
     name: "AccentPOS",
     tagline: "Restaurant commerce where the schema is the source of truth",
     org: "Blum Health",
-    period: "2023 — Present",
+    period: "2023 — 2026",
     domain: "Hospitality SaaS",
     angle: "Integration-heavy commerce on a declarative GraphQL core",
     context:

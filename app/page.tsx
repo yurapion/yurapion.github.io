@@ -11,7 +11,7 @@ const entryPoints = [
     href: routes.work,
     label: "Selected work",
     title: "Production systems with proof",
-    body: "Evolve, CardMedic, AI Sight Suite, AccentPOS, and Wunder AI/cosnova. Depth lives on the case-study pages.",
+    body: "YGO Console MCP, Evolve, CardMedic, AI Sight Suite, AccentPOS, and Wunder AI/cosnova. Depth lives on the case-study pages.",
   },
   {
     href: routes.practice,
@@ -29,7 +29,7 @@ const entryPoints = [
     href: routes.experience,
     label: "Experience",
     title: "CV without the noise",
-    body: "A concise timeline across Evolve, Blum Health, Wunder AI, and independent client-direct delivery.",
+    body: "A concise timeline across YGO, Evolve, Blum Health, Wunder AI, and independent client-direct delivery.",
   },
 ]
 

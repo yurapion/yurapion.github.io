@@ -15,14 +15,14 @@ export const routes = {
 
 export const siteProfile = {
   name: "Yurii Piontkovskyi",
-  role: "Staff Engineer",
+  role: "AI Product Engineer · Staff Engineer",
   positioning:
-    "Clinical cloud platforms, multi-tenant systems, SaaS, and production agent workflows.",
+    "Agent-facing APIs, clinical cloud platforms, multi-tenant systems, and production agent workflows.",
   headline:
-    "Staff engineer who ships production systems and the agent workflows that keep them moving.",
+    "Engineer who ships production systems, the APIs agents call, and the agent workflows that keep both moving.",
   summary:
-    "8+ years across healthcare, medical imaging AI, consumer media, and SaaS. At Evolve I own the cloud architecture for a clinical VR headset: identity, the application database, and the operator product. I use agents as a verified engineering multiplier.",
-  current: "Staff Engineer, Evolve",
+    "8+ years across healthcare, medical imaging AI, consumer media, travel, and SaaS. At YGO I build the APIs that AI agents call on a B2B travel platform, starting with a remote MCP server. At Evolve I wrote the cloud platform plan for a clinical VR headset and then delivered it: PostgreSQL, identity, and session authority in the cloud. I use agents as a verified engineering multiplier.",
+  current: "AI Product Engineer, YGO",
   location: "Remote — open to UK / EU / Global",
   email: "yurapion@gmail.com",
   linkedin: "https://www.linkedin.com/in/yuryi-piontkovskyi-240a74131",
@@ -37,7 +37,7 @@ export const lookingFor = {
     "AI Engineer / Agentic Systems",
     "Platform or Product Engineer",
   ],
-  contexts: ["Healthcare", "Clinical devices", "Clinical AI", "SaaS platforms", "Remote UK / EU / Global"],
+  contexts: ["Agent-facing products", "Healthcare", "Clinical devices", "SaaS platforms", "Remote UK / EU / Global"],
   note: "Best fit: complex production systems where architecture, delivery, and verification all matter.",
 }
 

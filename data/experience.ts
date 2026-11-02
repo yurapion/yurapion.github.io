@@ -11,27 +11,43 @@ export interface Experience {
 
 export const experience: Experience[] = [
   {
-    id: "evolve",
-    company: "Evolve",
-    role: "Staff Engineer",
-    period: "Sep 2026 — Present",
+    id: "ygo",
+    company: "YGO",
+    role: "AI Product Engineer",
+    period: "Oct 2026 — Present",
     location: "Remote",
     summary:
-      "Staff engineer on the cloud platform for a clinical VR headset. I own the architecture across identity, the application database, and the operator product, and I direct another engineer on that platform.",
+      "B2B AI travel platform: a Go and PostgreSQL backend, SvelteKit apps, and a multi-agent LLM layer that tour operators license. I plan, specify and verify. Agents write the code through the team's agent chain, and I check every change in production.",
     highlights: [
-      "PostgreSQL holds the application data: 19 tables and 33 TypeORM migrations. A session cannot point at a participant or device from another organization, and row-level security still applies when a query forgets its filter",
-      "The service connects as a role that does not own the tables. A table owner bypasses row-level security without an error, so that connection would make the tenant rules look present and do nothing",
-      "Operator and device identity sit in Cognito. The token decides the organization, and a device credential resolves to the organization that owns the headset",
-      "I ship the operator application against a live headset: create and start a session, signal quality, live sensor traces, and a CSV export that returns an error when it fails",
-      "Export jobs travel on the Kafka cluster already running in every environment. The data_exports row is the source of truth for status. I own that decision",
+      "Designed and shipped the YGO Console MCP server: a remote Model Context Protocol server with OAuth sign-in, so Claude, ChatGPT, Cursor and Claude Code can read a customer's projects and hotels and leave hotel feedback",
+      "Write tools preview before they write. The feedback tools show where the comment will land and ask for a confirm, and request_capability records what the server cannot do yet, so the roadmap comes from what agents ask for",
+      "Built threaded customer feedback in the Go backend: a migration, one write core shared by the API and the MCP, reply endpoints on two API surfaces, and OpenAPI specs. A reply drafted by a model stays marked as AI-generated on every read",
+      "Every tool call mirrors one audit line to a Slack channel, so the team can watch what agents do with the API",
     ],
-    stack: ["TypeScript", "NestJS", "React", "PostgreSQL", "TypeORM", "AWS Cognito", "Kafka", "Terraform"],
+    stack: ["Go", "PostgreSQL", "MCP", "OAuth", "SvelteKit", "Redis / Asynq", "DigitalOcean", "Claude Code"],
+  },
+  {
+    id: "evolve",
+    company: "Evolve (via Honeycomb Software)",
+    role: "Staff Engineer",
+    period: "Sep 2026 — Nov 2026",
+    location: "Remote",
+    summary:
+      "Cloud platform for a clinical VR headset with biosensing. I was hired on a case study that became the platform plan: the cloud as the trust and session-orchestration plane, PostgreSQL as the application database, and session authority moved from the headset into the cloud. I delivered that plan with one other engineer and held code-owner approval.",
+    highlights: [
+      "Introduced PostgreSQL and shipped the database layer: TypeORM schema-as-code, the organization as tenant key on every row, 46 row-level security policies, and least-privilege roles per service that do not own the tables, because a table owner bypasses those policies without an error",
+      "Owned the AWS cloud layer in Terraform across five environments: a KMS key per environment for RDS, S3, Redis, MSK and DynamoDB, checked live in production, CloudFront security headers, SES, and Cognito identity for operators and devices. I ran every dev and production apply",
+      "Designed and built Session Authority in NestJS with the second engineer: the session state machine, operator takeover under a row lock, presence reconciliation, timers claimed from Postgres with SKIP LOCKED, and a typed command and refusal contract to the headset over Socket.IO",
+      "Shipped the React 18 operator app for a live headset session (run lifecycle, check-ins, consent, signal quality, live EEG spectra) and the reports pipeline: Kafka-backed export and report queues, a report worker, and a conformance-checked contract for the data-science code",
+      "Wrote the ADRs for the Kafka export queue, signal quality, and per-environment encryption, and reviewed the other engineer's changes as code owner",
+    ],
+    stack: ["TypeScript", "NestJS", "React", "PostgreSQL", "TypeORM", "AWS Cognito", "KMS", "Kafka", "InfluxDB", "Terraform"],
   },
   {
     id: "blumhealth",
-    company: "Blum Health",
+    company: "Blum Health (via Honeycomb Software)",
     role: "Senior Full-Stack Engineer",
-    period: "Jul 2023 — Present",
+    period: "Jul 2023 — Nov 2026",
     location: "Remote",
     summary:
       "Lead engineer across three concurrent client products spanning NHS healthcare communications, clinical imaging AI, and restaurant SaaS — owning architecture, delivery, and client communication on each.",
