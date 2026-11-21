@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import type { ProjectArchitecture } from "@/data/architecture"
+import { decisionOwnerLabels, type Decision, type ProjectArchitecture } from "@/data/architecture"
 
 export function ArchitectureDiagram({ arch }: { arch: ProjectArchitecture }) {
   const ref = useRef<HTMLDivElement>(null)
@@ -28,7 +28,7 @@ export function ArchitectureDiagram({ arch }: { arch: ProjectArchitecture }) {
   return (
     <div ref={ref} className="rounded-lg border border-line bg-surface p-5 sm:p-7">
       <div className="mb-6 flex flex-wrap items-center justify-between gap-2">
-        <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted">System architecture</p>
+        <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted">{arch.id === "agent-workflow" ? "Workflow" : "System architecture"}</p>
         <p className="font-mono text-[11px] text-accent">{arch.pattern}</p>
       </div>
 
@@ -83,6 +83,24 @@ export function ArchitectureDiagram({ arch }: { arch: ProjectArchitecture }) {
           </div>
         ))}
       </div>
+    </div>
+  )
+}
+
+export function DecisionList({ decisions }: { decisions: Decision[] }) {
+  return (
+    <div className="space-y-6">
+      {decisions.map((decision) => (
+        <article key={decision.title} className="border-l border-line pl-5">
+          {decision.owner && (
+            <p className="mb-2 inline-block rounded-full border border-line px-2.5 py-0.5 font-mono text-[11px] uppercase tracking-[0.14em] text-accent">
+              {decisionOwnerLabels[decision.owner]}
+            </p>
+          )}
+          <h2 className="font-display text-2xl">{decision.title}</h2>
+          <p className="mt-2 leading-relaxed text-muted">{decision.body}</p>
+        </article>
+      ))}
     </div>
   )
 }

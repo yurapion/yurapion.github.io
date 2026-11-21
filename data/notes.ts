@@ -17,7 +17,7 @@ export const notes: Note[] = [
   {
     slug: "tenant-isolation-in-the-database",
     title: "Isolating tenants in the database, not the application",
-    dek: "Why AccentPOS enforces multi-tenant access at the data layer, and the Cognito-to-Hasura bridge that made it possible.",
+    dek: "How AccentPOS enforces multi-tenant access at the data layer, the Cognito-to-Hasura bridge it relies on, and what I learned working on it.",
     project: "AccentPOS",
     projectId: "accentpos",
     readingTime: "4 min",
@@ -25,7 +25,7 @@ export const notes: Note[] = [
       {
         paras: [
           "AccentPOS runs many venues on one Hasura and PostgreSQL backend, with the current CV recording 30+ live venues. A single query that forgets its tenant filter shows one venue's orders on another venue's dashboard. In a system taking live payments, that's an incident.",
-          "So the question that shaped the design was narrow: where does tenant isolation live?",
+          "The platform's original author answered a narrow question: where does tenant isolation live? I did not make that decision. I worked within it, and this note is how the platform does it.",
         ],
       },
       {
@@ -38,7 +38,7 @@ export const notes: Note[] = [
       {
         heading: "Push it down a layer",
         paras: [
-          "Hasura enforces row-level permissions declaratively, keyed on session variables. If every table's select and update rules filter on the organisation and location from the request's session, isolation stops being something application code has to remember. It becomes a property of the data layer.",
+          "The platform uses Hasura's declarative row-level permissions, keyed on session variables. Every table's select and update rules filter on the organisation and location from the request's session, so isolation is not something application code has to remember. It is a property of the data layer.",
           "A request carrying the wrong session variables returns nothing, by construction rather than by convention.",
         ],
       },
@@ -46,20 +46,20 @@ export const notes: Note[] = [
         heading: "The missing piece: Cognito doesn't speak Hasura",
         paras: [
           "There was a catch. Auth is AWS Cognito, and Hasura doesn't read Cognito tokens natively; it wants session variables. Nothing off the shelf bridged the two, so the platform carries its own bridge.",
-          "It's a webhook Hasura calls on every request: fetch Cognito's signing keys, verify the JWT, map its claims to the Hasura role, user, organisation, and location, and cache the keys for an hour so verification isn't a network round-trip on every call. Small surface, and the whole isolation model hangs on it.",
+          "It's a webhook Hasura calls on every request: fetch Cognito's signing keys, verify the JWT, map its claims to the Hasura role, user, organisation, and location, and cache the keys for an hour so verification isn't a network round-trip on every call. It is a small surface, and the whole isolation model hangs on it.",
         ],
       },
       {
         heading: "What it buys",
         paras: [
-          "The isolation rule is now written once per table and enforced everywhere. A new endpoint inherits it. Someone new to the codebase can't quietly skip it. The security property lives in the schema — which, with 326 migrations behind it, is the artifact that's always current.",
+          "The isolation rule is written once per table and enforced everywhere. A new endpoint inherits it, and someone new to the codebase can't quietly skip it. The security property lives in the schema, which, with 326 migrations behind it, is the artifact that's always current.",
         ],
       },
       {
         heading: "The edges",
         paras: [
           "It isn't free. The bridge is a critical path: if it's slow, every request is slow, which is exactly why the key cache earns its place. The hour-long cache is a deliberate trade of faster requests against slower pickup when a key rotates.",
-          "I'd push the same rigor outward. Signature verification covers the PayPal webhooks I built today; every inbound integration deserves the same HMAC check rather than trust in the network boundary.",
+          "What I built on top of it: signature verification covers the PayPal webhooks I wrote. I would extend the same HMAC check to every inbound integration rather than trust the network boundary.",
         ],
       },
     ],

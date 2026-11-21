@@ -1,10 +1,10 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { ArrowLeft, ArrowUpRight } from "lucide-react"
-import { ArchitectureDiagram } from "@/components/site/architecture-diagram"
+import { ArchitectureDiagram, DecisionList } from "@/components/site/architecture-diagram"
 import { Footer } from "@/components/site/footer"
 import { Nav } from "@/components/site/nav"
-import { getArchitecture } from "@/data/architecture"
+import { getArchitectureForProject } from "@/data/architecture"
 import { getNoteForProject } from "@/data/notes"
 import { caseStudies, getCaseStudy } from "@/data/projects"
 import { routes } from "@/data/site"
@@ -33,7 +33,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
     notFound()
   }
 
-  const architecture = getArchitecture(project.id)
+  const architecture = getArchitectureForProject(project.id)
   const note = getNoteForProject(project.id)
 
   return (
@@ -152,14 +152,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                 The interesting part is not the stack list. It is where the system puts risk.
               </p>
             </div>
-            <div className="space-y-6">
-              {architecture.decisions.map((decision) => (
-                <article key={decision.title} className="border-l border-line pl-5">
-                  <h2 className="font-display text-2xl">{decision.title}</h2>
-                  <p className="mt-2 leading-relaxed text-muted">{decision.body}</p>
-                </article>
-              ))}
-            </div>
+            <DecisionList decisions={architecture.decisions} />
           </section>
         )}
 

@@ -1,20 +1,20 @@
 export interface CaseStudy {
-  id: string
-  name: string
-  tagline: string
-  org: string
-  period: string
-  domain: string
-  angle: string
-  context: string
-  role: string
-  problem: string
-  architecture: string[]
-  outcomes: string[]
-  proof: string[]
-  evidenceNote: string
-  stack: string[]
-  featured: boolean
+  id: string;
+  name: string;
+  tagline: string;
+  org: string;
+  period: string;
+  domain: string;
+  angle: string;
+  context: string;
+  role: string;
+  problem: string;
+  architecture: string[];
+  outcomes: string[];
+  proof: string[];
+  evidenceNote: string;
+  stack: string[];
+  featured: boolean;
 }
 
 // Figures below are either counted from local source repositories or carried
@@ -24,22 +24,23 @@ export const caseStudies: CaseStudy[] = [
   {
     id: "ygo-console-mcp",
     name: "YGO Console MCP",
-    tagline: "An agent reads a customer's hotels and leaves feedback, and sees where it is writing first",
+    tagline:
+      "An agent reads a customer's hotels and leaves feedback, and sees where it is writing first",
     org: "YGO",
     period: "Oct 2026 — Present",
     domain: "B2B travel / agent-facing API",
-    angle: "A remote MCP server on a Go backend, with feedback tools that preview before they write",
+    angle:
+      "A remote MCP server on a Go backend, with feedback tools that preview before they write",
     context:
       "YGO licenses an AI travel platform to tour operators. Their staff already use Claude and ChatGPT, and they wanted those assistants to answer questions about their own projects and hotels, and to send a hotel comment to the review team, without a new UI.",
-    role:
-      "AI Product Engineer. A colleague created the read-only prototype. I took it to a product customers use: the write tools, request_capability, feedback listing and replies, logging and monitoring, and the threaded-feedback backend and UI under it. I plan and verify each change; agents write much of the code.",
+    role: "AI Product Engineer. A colleague created the read-only prototype. I took it to a product customers use: the write tools, request_capability, feedback listing and replies, logging and monitoring, and the threaded-feedback backend and UI under it. I plan and verify each change; agents write much of the code.",
     problem:
       "An agent calling a write endpoint on someone else's behalf needs three things the REST API did not give it: a sign-in it can complete on its own, a way to see where a write will land before it commits, and a record of what it asked for and could not get.",
     architecture: [
       "A remote Model Context Protocol server with OAuth sign-in on the platform's existing Google login. Claude, ChatGPT, Cursor and Claude Code add it by URL. Every tool is scoped to the projects the signed-in account can already open",
-      "Six tools: list_projects, list_hotels, send_hotel_feedback, request_capability, list_my_feedback and reply_to_feedback. Each is marked read-only or not",
+      "Seven tools: list_projects, list_hotels, list_my_feedback, list_hotel_requests, send_hotel_feedback, reply_to_feedback and request_capability. Each is marked read-only or not",
       "Write tools run in two steps. The first call returns a preview that names the hotel and project the comment will land on; the second call, with a confirm token, writes. A refusal gives the slot back before any insert",
-      "request_capability records what an agent asked for that the server cannot do yet. The roadmap for the next tools comes from that table rather than from guesswork",
+      "request_capability records what a user asked for that the server cannot do yet and passes it to the product team",
       "Threaded customer feedback underneath: a schema migration, one write core shared by the REST API and the MCP tools, reply and thread endpoints, OpenAPI docs and the SvelteKit UI",
       "Monitoring: one structured log line per tool call, signals for tool panics and sign-in failures, a BetterStack dashboard with monitors, and a Slack mirror of the calls during the beta",
     ],
@@ -56,21 +57,31 @@ export const caseStudies: CaseStudy[] = [
     ],
     evidenceNote:
       "Tool names and the sign-in flow verified against the live server and the customer install guide. Commit counts are from the ygocloud repository history.",
-    stack: ["Go", "PostgreSQL", "MCP", "OAuth", "Redis / Asynq", "Slack API", "OpenAPI", "DigitalOcean"],
+    stack: [
+      "Go",
+      "PostgreSQL",
+      "MCP",
+      "OAuth",
+      "Redis / Asynq",
+      "Slack API",
+      "OpenAPI",
+      "DigitalOcean",
+    ],
     featured: true,
   },
   {
     id: "evolve",
     name: "Evolve",
-    tagline: "I wrote the Session Authority records and built it with a second engineer",
+    tagline:
+      "I wrote the Session Authority records and built it with a second engineer",
     org: "Evolve (via Honeycomb Software)",
     period: "Sep 2026 — Nov 2026",
     domain: "Clinical VR / cloud",
-    angle: "Session authority moved from the headset into the cloud, with the database connection secured",
+    angle:
+      "Session authority moved from the headset into the cloud, with the database connection secured",
     context:
       "Cloud platform for a clinical VR headset with biosensing. An operator at a partner site runs a session, the headset streams sensor samples, and the recording has to stay inside the organization that owns the device and the participant.",
-    role:
-      "Staff engineer. I joined through an architecture case study. It proposed PostgreSQL with row-level security and the organisation as the tenant key, when the design had no relational store, and the team adopted it within two weeks. I worked with the second engineer on the first tables, then built the session, device and consent tables. I wrote the four architecture decision records for Session Authority, which moves control of a live session from the headset to the cloud, and built it with the second engineer. I planned the full-stack work for the two of us. The team had five people.",
+    role: "Staff engineer. I joined through an architecture case study. It proposed PostgreSQL with row-level security and the organisation as the tenant key, when the design had no relational store, and the team adopted it within two weeks. I worked with the second engineer on the first tables, then built the session, device and consent tables. I wrote the four architecture decision records for Session Authority, which moves control of a live session from the headset to the cloud, and built it with the second engineer. I planned the full-stack work for the two of us. The team had five people.",
     problem:
       "The platform had ingest but no trust layer: no application database, no tenant boundary, and the session state lived on the headset. Partner-site staff had to share a session with a device without one organization reading another's participants, devices, or recordings, and the rules had to hold even when a query forgets its filter.",
     architecture: [
@@ -95,7 +106,19 @@ export const caseStudies: CaseStudy[] = [
     ],
     evidenceNote:
       "Schema, policies, environments and ADRs verified from the local evolve-cloud monorepo and shared-docs. The schema and policy counts describe the platform, which a team of five built; they are not all my work.",
-    stack: ["TypeScript", "NestJS", "React 18", "PostgreSQL", "TypeORM", "AWS Cognito", "KMS", "Kafka", "InfluxDB", "Terraform", "LocalStack"],
+    stack: [
+      "TypeScript",
+      "NestJS",
+      "React 18",
+      "PostgreSQL",
+      "TypeORM",
+      "AWS Cognito",
+      "KMS",
+      "Kafka",
+      "InfluxDB",
+      "Terraform",
+      "LocalStack",
+    ],
     featured: true,
   },
   {
@@ -108,8 +131,7 @@ export const caseStudies: CaseStudy[] = [
     angle: "Event-driven scale under clinical compliance",
     context:
       "Clinical communication platform used in NHS settings — multilingual content, machine + human translation, and speech, delivered to patients and staff at the bedside.",
-    role:
-      "The only engineer on CardMedic from 2023, directing an intern. I owned the whole platform: the backend services, the React admin, the Flutter app and production translation operations. I scaled and ran the content-translation pipeline.",
+    role: "The only engineer on CardMedic from 2023, directing an intern. I owned the whole platform: the backend services, the React admin, the Flutter app and production translation operations. I scaled and ran the content-translation pipeline.",
     problem:
       "Translate and maintain a clinical content library across many languages without throttling third-party APIs, losing jobs, or overwriting human-verified clinical wording.",
     architecture: [
@@ -132,7 +154,17 @@ export const caseStudies: CaseStudy[] = [
     ],
     evidenceNote:
       "Backend verified from local `cardmedic-cms`; mobile stack verified from local Flutter repo. Business rollout and monthly throughput are carried from the current CV.",
-    stack: ["TypeScript", "Node.js", "AWS Lambda", "DynamoDB", "SQS/SNS", "Cognito", "Flutter", "React", "GitHub Actions"],
+    stack: [
+      "TypeScript",
+      "Node.js",
+      "AWS Lambda",
+      "DynamoDB",
+      "SQS/SNS",
+      "Cognito",
+      "Flutter",
+      "React",
+      "GitHub Actions",
+    ],
     featured: true,
   },
   {
@@ -145,8 +177,7 @@ export const caseStudies: CaseStudy[] = [
     angle: "Cross-cloud AI inference inside a strict clinical domain model",
     context:
       "Diabetic retinopathy screening platform: clinicians upload retinal images, AI models grade them in real time, and every action lands in a clinical audit trail.",
-    role:
-      "About a third of the commits on the backend. I built the Xero billing integration alone: an admin connects an organisation over OAuth, the system counts the images screened in a billing period, prices them and creates a draft invoice in Xero. I extended licensing, and worked on the pipeline that sends retinal images to two trained models on AWS SageMaker. I did not build that pipeline.",
+    role: "About a third of the commits on the backend. I built the Xero billing integration alone: an admin connects an organisation over OAuth, the system counts the images screened in a billing period, prices them and creates a draft invoice in Xero. I extended licensing, and worked on the pipeline that sends retinal images to two trained models on AWS SageMaker. I did not build that pipeline.",
     problem:
       "Combine ML inference, DICOM imaging, multi-tenant licensing, and clinical audit obligations in one system — without letting compliance concerns leak into every layer of the code.",
     architecture: [
@@ -170,7 +201,17 @@ export const caseStudies: CaseStudy[] = [
     ],
     evidenceNote:
       "Source verified from `ai-sight-suite`; screening volume is a CV-carried delivery metric.",
-    stack: [".NET 10", "C#", "PostgreSQL", "EF Core", "AWS SageMaker", "Azure AD B2C", "React 18", "Vite", "SignalR"],
+    stack: [
+      ".NET 10",
+      "C#",
+      "PostgreSQL",
+      "EF Core",
+      "AWS SageMaker",
+      "Azure AD B2C",
+      "React 18",
+      "Vite",
+      "SignalR",
+    ],
     featured: true,
   },
   {
@@ -183,8 +224,7 @@ export const caseStudies: CaseStudy[] = [
     angle: "Integration-heavy commerce on a declarative GraphQL core",
     context:
       "Multi-site restaurant and venue platform — ordering, stock, payments, delivery aggregation, and finance — live across 30+ venues.",
-    role:
-      "I built the PayPal integration (merchant onboarding, order creation and capture, refunds with idempotency keys, verified webhooks) and the online and QR payment pages. The Hasura and Fastify split, the auth bridge, and the Dojo, Deliverect and Xero integrations below were colleagues' work, not mine.",
+    role: "I built the PayPal integration (merchant onboarding, order creation and capture, refunds with idempotency keys, verified webhooks) and the online and QR payment pages. The Hasura and Fastify split, the auth bridge, and the Dojo, Deliverect and Xero integrations below were colleagues' work, not mine.",
     problem:
       "Keep GraphQL data access declarative while payments, delivery, and accounting integrations demand imperative business logic — and keep every tenant's data strictly isolated.",
     architecture: [
@@ -208,7 +248,18 @@ export const caseStudies: CaseStudy[] = [
     ],
     evidenceNote:
       "Core monorepo verified from local `apos-suite`. Architecture counts describe the platform; my own work is the feature list above. Venue count is CV-carried.",
-    stack: ["Hasura", "GraphQL", "Fastify", "Node.js", "PostgreSQL", "AWS Cognito", "React", "Apollo", "PayPal", "Xero"],
+    stack: [
+      "Hasura",
+      "GraphQL",
+      "Fastify",
+      "Node.js",
+      "PostgreSQL",
+      "AWS Cognito",
+      "React",
+      "Apollo",
+      "PayPal",
+      "Xero",
+    ],
     featured: true,
   },
   {
@@ -221,8 +272,7 @@ export const caseStudies: CaseStudy[] = [
     angle: "Multi-brand consumer products on a shared Go/GraphQL platform",
     context:
       "Interactive campaign apps (Playtime) and a B2B insight product for consumer brands (Cosnova, Eurail, Bacardi), on a shared Go and GraphQL backend monorepo.",
-    role:
-      "Main author of Playtime (about two thirds of the commits) and of the insight front end (about three quarters of the commits). In my first year I worked in the Go and gqlgen monorepo: the rule editor UI, OAuth sign-in for the studio app, and small Go changes. Clients: Cosnova, Eurail, Bacardi.",
+    role: "Main author of Playtime (about two thirds of the commits) and of the insight front end (about three quarters of the commits). In my first year I worked in the Go and gqlgen monorepo: the rule editor UI, OAuth sign-in for the studio app, and small Go changes. Clients: Cosnova, Eurail, Bacardi.",
     problem:
       "Serve many branded consumer apps and a B2B analytics product from one platform — including mirroring live consumer sessions into the B2B tool in real time.",
     architecture: [
@@ -247,9 +297,21 @@ export const caseStudies: CaseStudy[] = [
     ],
     evidenceNote:
       "Source verified from `cosnova-mono`, `playtime-festival-quiz`, and `target-group-frontend`. Attendee reach is CV-carried.",
-    stack: ["React", "TypeScript", "Go", "gqlgen", "Apollo", "Dgraph", "Kafka", "Redis", "Kubernetes", "ArgoCD"],
+    stack: [
+      "React",
+      "TypeScript",
+      "Go",
+      "gqlgen",
+      "Apollo",
+      "Dgraph",
+      "Kafka",
+      "Redis",
+      "Kubernetes",
+      "ArgoCD",
+    ],
     featured: true,
   },
-]
+];
 
-export const getCaseStudy = (id: string) => caseStudies.find((c) => c.id === id)
+export const getCaseStudy = (id: string) =>
+  caseStudies.find((c) => c.id === id);

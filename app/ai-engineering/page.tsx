@@ -1,8 +1,10 @@
 import type { Metadata } from "next"
 import { Footer } from "@/components/site/footer"
 import { Nav } from "@/components/site/nav"
+import { ArchitectureDiagram, DecisionList } from "@/components/site/architecture-diagram"
 import { AIEngineering } from "@/components/site/ai-engineering"
 import { agentWorkflow } from "@/data/ai-engineering"
+import { getArchitecture } from "@/data/architecture"
 import { principles } from "@/data/principles"
 
 export const metadata: Metadata = {
@@ -11,6 +13,7 @@ export const metadata: Metadata = {
 }
 
 export default function AIEngineeringPage() {
+  const workflow = getArchitecture("agent-workflow")
   return (
     <>
       <Nav />
@@ -38,6 +41,17 @@ export default function AIEngineeringPage() {
               </article>
             ))}
           </div>
+          {workflow && (
+            <>
+              <div className="mt-10">
+                <ArchitectureDiagram arch={workflow} />
+              </div>
+              <div className="mt-10 max-w-3xl">
+                <DecisionList decisions={workflow.decisions} />
+              </div>
+              <p className="mt-8 max-w-3xl text-sm leading-relaxed text-muted">{workflow.retro}</p>
+            </>
+          )}
         </section>
         <section className="mx-auto max-w-page px-5 py-20 sm:px-8 sm:py-28">
           <p className="font-mono text-xs uppercase tracking-[0.18em] text-accent">Operating rules</p>
