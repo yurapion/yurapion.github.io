@@ -1,6 +1,6 @@
 # Yurii Piontkovskyi — Portfolio
 
-Source for my personal portfolio site. Senior full-stack engineer, 8+ years across
+Source for my personal portfolio site. Senior full-stack engineer, 9 years across
 healthcare, medical imaging AI, consumer media, and SaaS, with a current focus on
 agentic development that can be verified in production.
 

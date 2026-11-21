@@ -32,7 +32,7 @@ export const practiceAreas: PracticeArea[] = [
       context:
         "AI Sight combines DICOM imaging, model inference, licensing, billing, and long-lived clinical audit records.",
       action:
-        "I kept those concerns behind clear domain and infrastructure boundaries, with explicit error handling and concurrent primary and secondary model calls.",
+        "The backend keeps those concerns behind clear domain and infrastructure boundaries, with explicit error handling and concurrent primary and secondary model calls. I worked on about a third of its commits.",
       result:
         "The backend can evolve each integration without spreading clinical and infrastructure concerns through every layer.",
     },
@@ -44,7 +44,7 @@ export const practiceAreas: PracticeArea[] = [
     summary:
       "My work includes infrastructure, CI/CD, observability, runbooks, and recovery. A feature is incomplete if the team cannot deploy, inspect, and repair it.",
     evidence: [
-      "Terraform-managed Azure and AWS environments",
+      "Terraform for the AWS environments on a clinical headset platform (KMS encryption at rest, Redis TLS)",
       "GitHub Actions, Bitbucket Pipelines, Drone, Kaniko, and Kubernetes delivery",
       "CloudWatch, SNS, Slack alerts, Testcontainers, SonarQube, and Prometheus",
     ],
@@ -65,7 +65,7 @@ export const practiceAreas: PracticeArea[] = [
     summary:
       "I turn broad requests into a release order the client and engineers can act on. That means making dependencies visible and changing scope when a smaller step creates value sooner.",
     evidence: [
-      "Lead ownership across three concurrent client products",
+      "Work across five client products at Blum Health",
       "Direct discussions about priorities, trade-offs, and delivery timelines",
       "Staged production rollouts with explicit blast-radius controls",
     ],
@@ -74,7 +74,7 @@ export const practiceAreas: PracticeArea[] = [
       context:
         "On AI Sight, the client wanted the licensing feature completed in full before the team moved to Xero integration.",
       action:
-        "I proposed building a mocked licensing UI first, then prioritising Xero. The mock would give the client a coherent MVP to show investors while engineering progressed on the integration.",
+        "I proposed building a mocked licensing UI first, then prioritising the Xero billing integration, which I built. The mock would give the client a coherent MVP to show investors while engineering progressed on the integration.",
       result:
         "The client agreed to the revised sequence, so the product story could move forward without waiting for the full licensing implementation.",
     },
@@ -107,7 +107,7 @@ export const practiceAreas: PracticeArea[] = [
     summary:
       "I can own a product independently, and I can coordinate a small team when delivery needs more hands. My job is to make priorities and engineering expectations clear.",
     evidence: [
-      "Direct an engineer on the Evolve cloud platform: schema, authentication, and tenancy rules",
+      "Wrote the Session Authority decision records at Evolve, built it with one other engineer, and planned the work of the two of us",
       "Onboarding and task allocation for a small engineering team",
       "Code and work reviews with practical direction on next steps",
       "Hands-on support for juniors learning the development process",
@@ -117,7 +117,7 @@ export const practiceAreas: PracticeArea[] = [
       context:
         "New and junior engineers needed enough product and process context to contribute without guessing at priorities.",
       action:
-        "I ran onboarding, split work by ownership, reviewed each engineer's output, and explained both the next step and why it mattered. I also kept questions welcome during the work.",
+        "On CardMedic I directed an intern: I ran onboarding, split work by ownership, reviewed each engineer's output, and explained both the next step and why it mattered. I also kept questions welcome during the work.",
       result:
         "Engineers had clearer ownership, and juniors had a predictable person and process to use when they were blocked.",
     },

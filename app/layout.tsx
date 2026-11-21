@@ -20,7 +20,7 @@ const sans = Instrument_Sans({
   subsets: ["latin"],
 })
 
-const description = `${siteProfile.role} building cloud-native systems for healthcare, medical imaging AI, SaaS, and production agent workflows.`
+const description = `Staff engineer building cloud-native systems for healthcare, medical imaging AI, SaaS, and production agent workflows.`
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

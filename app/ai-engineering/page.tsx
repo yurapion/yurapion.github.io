@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Footer } from "@/components/site/footer"
 import { Nav } from "@/components/site/nav"
 import { AIEngineering } from "@/components/site/ai-engineering"
+import { agentWorkflow } from "@/data/ai-engineering"
 import { principles } from "@/data/principles"
 
 export const metadata: Metadata = {
@@ -25,6 +26,19 @@ export default function AIEngineeringPage() {
           </p>
         </section>
         <AIEngineering />
+        <section id="how-i-work" className="mx-auto max-w-page px-5 py-20 sm:px-8 sm:py-28">
+          <p className="font-mono text-xs uppercase tracking-[0.18em] text-accent">{agentWorkflow.eyebrow}</p>
+          <h2 className="mt-4 max-w-3xl font-display text-4xl leading-tight sm:text-5xl">{agentWorkflow.title}</h2>
+          <p className="mt-5 max-w-3xl leading-relaxed text-muted">{agentWorkflow.intro}</p>
+          <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {agentWorkflow.practices.map((practice) => (
+              <article key={practice.id} className="rounded-lg border border-line bg-surface p-6">
+                <h3 className="font-display text-2xl">{practice.label}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted">{practice.body}</p>
+              </article>
+            ))}
+          </div>
+        </section>
         <section className="mx-auto max-w-page px-5 py-20 sm:px-8 sm:py-28">
           <p className="font-mono text-xs uppercase tracking-[0.18em] text-accent">Operating rules</p>
           <div className="mt-6 grid gap-5 md:grid-cols-3">

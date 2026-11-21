@@ -98,7 +98,7 @@ export const architectures: ProjectArchitecture[] = [
       },
       {
         title: "Queue the export on Kafka that is already there",
-        body: "Export jobs travel on the Kafka cluster already running in every environment. The data_exports row is the source of truth for status. I own that decision.",
+        body: "Export jobs travel on the Kafka cluster already running in every environment. The data_exports row is the source of truth for status. I wrote the decision record.",
       },
     ],
     optimizedFor: [
@@ -114,7 +114,7 @@ export const architectures: ProjectArchitecture[] = [
     pattern: "Event-driven serverless · AWS",
     stats: [
       { value: "9", label: "microservices" },
-      { value: "49", label: "locale files" },
+      { value: "55", label: "locale files" },
       { value: "AWS", label: "serverless stack" },
       { value: "NHS", label: "clinical context" },
     ],
@@ -136,13 +136,13 @@ export const architectures: ProjectArchitecture[] = [
       {
         tier: "Compute",
         nodes: [
-          { label: "9 Lambda microservices", note: "auth · account · user · bookmark · analytics · content · speech · translation-admin ×2", accent: true },
+          { label: "9 Lambda microservices · 244 REST endpoints", note: "auth · account · user · bookmark · analytics · content · speech · translation-admin ×2", accent: true },
         ],
       },
       {
         tier: "Async pipeline",
         nodes: [
-          { label: "Translation queues", note: "language lanes · batching", accent: true },
+          { label: "Translation queues", note: "22 SQS queues · batching", accent: true },
           { label: "Polly · BSL · recording queues" },
           { label: "DLQ → CloudWatch → SNS → Slack" },
         ],
@@ -175,7 +175,7 @@ export const architectures: ProjectArchitecture[] = [
     ],
     optimizedFor: ["Never overwrite verified clinical content", "Throughput without vendor throttling", "Swap vendors without a rewrite"],
     retro:
-      "Signature verification covers the Xero webhook; I would extend HMAC checks to every inbound integration and make queue sharding config-driven so throughput can change without a redeploy.",
+      "Signature verification covers inbound webhooks on some integrations; I would extend HMAC checks to every inbound integration and make queue sharding config-driven so throughput can change without a redeploy.",
   },
   {
     id: "ai-sight",
@@ -228,8 +228,7 @@ export const architectures: ProjectArchitecture[] = [
       {
         tier: "Infra & CI",
         nodes: [
-          { label: "Terraform (Azure)" },
-          { label: "Testcontainers" },
+                    { label: "Testcontainers" },
           { label: "SonarQube + dotCover" },
         ],
       },
@@ -288,10 +287,10 @@ export const architectures: ProjectArchitecture[] = [
       {
         tier: "External",
         nodes: [
-          { label: "PayPal" },
-          { label: "Dojo" },
-          { label: "Deliverect" },
-          { label: "Xero" },
+          { label: "PayPal", note: "my integration" },
+          { label: "Dojo", note: "colleague's work" },
+          { label: "Deliverect", note: "colleague's work" },
+          { label: "Xero", note: "colleague's work" },
         ],
       },
     ],
@@ -306,7 +305,7 @@ export const architectures: ProjectArchitecture[] = [
       },
       {
         title: "Isolate tenants in the database, not the app",
-        body: "A hand-built Cognito→Hasura bridge injects session variables so row-level filters enforce tenant isolation on nearly every table. Safety doesn't depend on app code remembering to filter.",
+        body: "A Cognito→Hasura bridge injects session variables so row-level filters enforce tenant isolation on nearly every table. Safety doesn't depend on app code remembering to filter.",
       },
     ],
     optimizedFor: ["One schema as the contract", "Side effects isolated from data access", "Multi-tenant safety enforced by the DB"],
@@ -326,9 +325,9 @@ export const architectures: ProjectArchitecture[] = [
       {
         tier: "Client",
         nodes: [
-          { label: "Playtime SPA", note: "branded festival experiences · Scandit" },
-          { label: "Target Group", note: "Cytoscape / D3" },
-          { label: "LiveMind", note: "iframe + subscription mirror" },
+          { label: "Playtime SPA", note: "one codebase · apps rendered from CMS JSON · 56 template types" },
+          { label: "Insight front end", note: "graph views · Cytoscape / D3" },
+          { label: "LiveMind", note: "GraphQL subscriptions over WebSocket · D3 graph" },
         ],
       },
       {
@@ -353,7 +352,7 @@ export const architectures: ProjectArchitecture[] = [
       {
         tier: "Platform",
         nodes: [
-          { label: "Drone → Kaniko → K8s" },
+          { label: "Drone → Kaniko → K8s", note: "colleague's setup" },
           { label: "Flux / ArgoCD" },
           { label: "Prometheus / Grafana / Loki" },
           { label: "Backstage" },

@@ -45,7 +45,7 @@ export const notes: Note[] = [
       {
         heading: "The missing piece: Cognito doesn't speak Hasura",
         paras: [
-          "There was a catch. Auth is AWS Cognito, and Hasura doesn't read Cognito tokens natively; it wants session variables. Nothing off the shelf bridged the two the way I needed, so I built it.",
+          "There was a catch. Auth is AWS Cognito, and Hasura doesn't read Cognito tokens natively; it wants session variables. Nothing off the shelf bridged the two, so the platform carries its own bridge.",
           "It's a webhook Hasura calls on every request: fetch Cognito's signing keys, verify the JWT, map its claims to the Hasura role, user, organisation, and location, and cache the keys for an hour so verification isn't a network round-trip on every call. Small surface, and the whole isolation model hangs on it.",
         ],
       },
@@ -59,7 +59,7 @@ export const notes: Note[] = [
         heading: "The edges",
         paras: [
           "It isn't free. The bridge is a critical path: if it's slow, every request is slow, which is exactly why the key cache earns its place. The hour-long cache is a deliberate trade of faster requests against slower pickup when a key rotates.",
-          "And I'd push the same rigor outward. Signature verification covers the Xero webhook today; every inbound integration deserves the same HMAC check rather than trust in the network boundary.",
+          "I'd push the same rigor outward. Signature verification covers the PayPal webhooks I built today; every inbound integration deserves the same HMAC check rather than trust in the network boundary.",
         ],
       },
     ],
@@ -110,7 +110,7 @@ export const notes: Note[] = [
       {
         heading: "What I'd revisit",
         paras: [
-          "Two things. Queue sharding belongs in runtime config; that would scale throughput without a redeploy. And signature verification covers the Xero webhook today — every inbound callback deserves the same HMAC check.",
+          "Two things. Queue sharding belongs in runtime config; that would scale throughput without a redeploy. And signature verification covers inbound webhooks on some integrations today. Every inbound callback deserves the same HMAC check.",
         ],
       },
     ],

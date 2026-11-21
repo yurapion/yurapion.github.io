@@ -15,13 +15,13 @@ export const routes = {
 
 export const siteProfile = {
   name: "Yurii Piontkovskyi",
-  role: "AI Product Engineer · Staff Engineer",
+  role: "Staff Engineer | AI Product Engineering | Cloud Platforms | Agentic Delivery",
   positioning:
     "Agent-facing APIs, clinical cloud platforms, multi-tenant systems, and production agent workflows.",
   headline:
     "Engineer who ships production systems, the APIs agents call, and the agent workflows that keep both moving.",
   summary:
-    "8+ years across healthcare, medical imaging AI, consumer media, travel, and SaaS. At YGO I build the APIs that AI agents call on a B2B travel platform, starting with a remote MCP server. At Evolve I wrote the cloud platform plan for a clinical VR headset and then delivered it: PostgreSQL, identity, and session authority in the cloud. I use agents as a verified engineering multiplier.",
+    "9 years across healthcare, medical imaging AI, consumer media, travel, and SaaS. At YGO I work on the part of a B2B travel platform that AI assistants use: a remote MCP server where Claude and ChatGPT read customer data and write to it only after the user confirms a preview. I have been the only engineer on a production NHS platform and have planned the work of a two-engineer team. I use Claude Code every day and check what the agents produce.",
   current: "AI Product Engineer, YGO",
   location: "Remote — open to UK / EU / Global",
   email: "yurapion@gmail.com",
